@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Copyright 2009 The MITRE Corporation 
+  
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. 
+  You may obtain a copy of the License at 
+  
+  http://www.apache.org/licenses/LICENSE-2.0 
+  
+  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+  language governing permissions and limitations under the License. 
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/patient_information"
+  xmlns:p="http://projecthdata.org/hdata/schemas/2009/06/patient_information"
+  xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
+  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
+    schemaLocation="core_data_types.xsd"/>
+  <xs:element name="patient">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="core:person.class">
+          <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element ref="p:gender" minOccurs="0"/>
+            <xs:element minOccurs="0" maxOccurs="unbounded" ref="p:language"/>
+            <xs:element ref="p:birthtime" minOccurs="0"/>
+            <xs:element ref="p:maritalStatus" minOccurs="0"/>
+            <xs:element ref="p:race" maxOccurs="unbounded" minOccurs="0"/>
+            <xs:element minOccurs="0" ref="p:guardian"/>
+            <xs:element ref="p:birthPlace" minOccurs="0"/>
+            <xs:group ref="core:abstractSection"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+
+
+  <xs:element name="gender">
+    <xs:annotation>
+      <xs:documentation> 
+                HL7 AdministrativeGender codes
+                
+                M - Male
+                F - Female
+                UN- Undifferentiated
+                </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="core:codedValue"> </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="language">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="core:codedValue"> </xs:extension>
+      </xs:simpleContent>
+
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="birthtime" type="xs:date"/>
+  <xs:element name="maritalStatus">
+    <xs:annotation>
+      <xs:documentation>
+                    Marital status shall be represented by HL7 Marital status vocabulary
+                 	V15929			
+                    The marital status of the patient at date of admission, outpatient service or start of care. Values such as: single married, Life Partner, Legally Separated, Divorced, Widowed, Unknown. Form Locator 16 in the NUBC document. This is to be used only in situations where regulations require the use of NUBC marital status codes.
+                    
+                    A	Annulled	
+                    Marriage contract has been declared null and to not have existed
+                    
+                    D	Divorced	
+                    Marriage contract has been declared dissolved and inactive
+                    
+                   	I	Interlocutory	
+                    Subject to an Interlocutory Decree.
+                    
+                    L	Legally Separated	
+                    M	Married	
+                    A current marriage contract is active
+                    
+                    P	Polygamous	
+                    More than 1 current spouse
+                    
+                    S	Never Married	
+                    No marriage contract has ever been entered
+                    
+                    T	Domestic partner	
+                    Person declares that a domestic partner relationship exists.
+                    
+                    W	Widowed	
+                    The spouse has died
+                </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="core:codedValue"> </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="race">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="core:codedValue"> </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="guardian" type="core:actor"/>
+  <xs:element name="birthPlace">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="core:address"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Copyright 2009 The MITRE Corporation 
+  
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. 
+  You may obtain a copy of the License at 
+  
+  http://www.apache.org/licenses/LICENSE-2.0 
+  
+  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+  language governing permissions and limitations under the License. 
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/core"
+  xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
+
+
+  <xs:element name="date" type="xs:dateTime"/>
+  <xs:element name="dateRange">
+    <xs:complexType>
+      <xs:attribute name="high" type="xs:dateTime"/>
+      <xs:attribute name="low" use="required" type="xs:dateTime"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="codedValue">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="code"/>
+        <xs:attribute name="codeSystem"/>
+        <xs:attribute name="version"/>
+        <xs:attribute name="displayName"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:element name="name">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="title" type="xs:string"/>
+        <xs:element name="given" type="xs:string" maxOccurs="unbounded"/>
+        <xs:element name="lastname" type="xs:string"/>
+        <xs:element minOccurs="0" name="suffix" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="address">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="streetAddress" minOccurs="0" maxOccurs="unbounded" type="xs:string"/>
+        <xs:element name="city" type="xs:string"/>
+        <xs:element minOccurs="0" name="stateOrProvince" type="xs:string"/>
+        <xs:element name="zip" minOccurs="0" type="xs:string"/>
+        <xs:element minOccurs="0" name="country" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="telecom">
+    <xs:complexType>
+      <xs:attribute name="value" use="required"/>
+      <xs:attribute name="use" use="required"/>
+      <xs:attribute default="false" name="prefered" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="actor" abstract="true">
+    <xs:annotation>
+      <xs:documentation>
+            An actor is a generic type used to define various entities within the document. This will generally be a person, such as a 
+            point of contact,doctor, guardian ... , or an organization, such as insurance provider, care provider ...
+        </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="actor">
+    <xs:sequence>
+      <xs:element ref="core:actor"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="organization" substitutionGroup="core:actor" type="core:organization.class"/>
+  <xs:element name="person" substitutionGroup="core:actor" type="core:person.class"/>
+  <xs:complexType name="person.class">
+    <xs:annotation>
+      <xs:documentation>
+            Generic definition of a person. name address, contact information such as telephone , email ...
+            This is represented as a class of object so the same basic person structure can be used to define 
+            multiple types of elements , such as patient, author, .... 
+            
+            name: the name of the individual, see the definition of name
+            address: 0 or more address entries, see the definition of address
+            telecom: 0 or more telecom entries, see the definition of telecom
+        </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element ref="core:name"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="core:address"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="core:telecom"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="organization.class">
+    <xs:annotation>
+      <xs:documentation> Base class definition of an organization. 
+            
+            An organization can have 0 or more points of contact which are represented as poc elements of type person.class
+            
+            name: the Name of the organization , simple String value
+            pointsOfContact:  wrapper element around 0 or more poc elements.  poc elements are structured as person.class elements 
+            address: 0 or more address elements for the given organization
+            
+        </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="pointOfContacts" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="pointOfContact" form="unqualified"
+              type="core:person.class"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="core:address"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="informationSource">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="author" type="core:person.class" minOccurs="0"/>
+        <xs:element ref="core:date" minOccurs="0"/>
+        <xs:element name="reference" type="xs:string" minOccurs="0"/>
+        <xs:element name="informant" type="core:actor"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="description">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="text" type="xs:string"/>
+        <xs:element name="codedValue" minOccurs="0" maxOccurs="unbounded" type="core:codedValue"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+
+  <xs:group name="abstractSection">
+    <xs:annotation>
+      <xs:documentation> 
+          This definition is used to add data structures that will be common across all hData modules.  An hData module implementation
+          will simply need to add this definition as a reference to obtain all of the common behavior
+        </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:sequence minOccurs="0">
+        <xs:element ref="core:informationSource" minOccurs="0"/>
+        <xs:element ref="core:description" minOccurs="0"/>
+      </xs:sequence>
+    </xs:sequence>
+  </xs:group>
+</xs:schema>

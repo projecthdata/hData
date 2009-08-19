@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Copyright 2009 The MITRE Corporation 
+  
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. 
+  You may obtain a copy of the License at 
+  
+  http://www.apache.org/licenses/LICENSE-2.0 
+  
+  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+  language governing permissions and limitations under the License. 
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/immunization"
+  xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
+  xmlns:i="http://projecthdata.org/hdata/schemas/2009/06/immunization">
+  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
+    schemaLocation="core_data_types.xsd"/>
+  <xs:annotation>
+    <xs:documentation>
+      This section is used to define a patients immunizations.
+      
+      The date element is used to denote the date of the immunization
+      
+      The refusal element is used to describe why a patient refused the immunization if needed.
+      
+      The series number element is used to describe series information about the immunization, if needed.
+      
+      The performer element is used to define the person/organization that performed the immunization.
+      
+      The product element describes the substance used for the immunization.
+      
+      
+    </xs:documentation>
+  </xs:annotation>
+  <xs:element name="immunization">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="i:product"/>
+        <xs:element ref="core:date" minOccurs="0"/>
+        <xs:element name="refusal" minOccurs="0" type="xs:string"/>
+        <xs:element name="seriesNumber" minOccurs="0" type="xs:string"/>
+        <xs:element name="performer" type="core:actor" minOccurs="0"/>
+        <xs:group ref="core:abstractSection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="product">
+    <xs:annotation>
+      <xs:documentation>
+        
+        This element describes the substance used to perform an immunization.
+        
+        name: the optional name of the substance used for the immunization as the value of the element. This should be the free text brand or generic name of the substance
+              This is also coded value element but not constrained  to any particular coding system so implementers can supply a coded value for the name if available.
+              
+        material: the name of the actual material used in the immunization. This differs from the name of the product as this would be the actual material as opposed to 
+                  the brand name of a product. This is also a codedValue element not constrained to a coding system. In addition to the codedValue attributes this element 
+                  defines an additional optional attribute, lotNumber, used to supply the lot number of a material if known.
+                  
+                  
+        manufacturer: The optional organization that manufactured the product.       
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="name" type="core:codedValue"/>
+
+        <xs:element name="material" minOccurs="0">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="core:codedValue"> </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="manufacturer" minOccurs="0" type="core:organization.class"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+
+
+</xs:schema>

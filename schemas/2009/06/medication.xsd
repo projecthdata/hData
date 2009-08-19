@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Copyright 2009 The MITRE Corporation 
+  
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. 
+  You may obtain a copy of the License at 
+  
+  http://www.apache.org/licenses/LICENSE-2.0 
+  
+  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+  language governing permissions and limitations under the License. 
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/medication"
+  xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
+  xmlns:medication="http://projecthdata.org/hdata/schemas/2009/06/medication">
+  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
+    schemaLocation="core_data_types.xsd"/>
+  <xs:element name="medication">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="medication:product"/>
+        <xs:element ref="medication:type" minOccurs="0"/>
+        <xs:element ref="medication:status" minOccurs="0"/>
+        <xs:element ref="medication:orderInformation" minOccurs="0"/>
+        <xs:element ref="medication:perscription" minOccurs="0"/>
+        <xs:group ref="core:abstractSection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="type">
+    <xs:annotation>
+      <xs:documentation>
+         The type of medication that it is: either prescription or over the counter
+         This shall be represented using SNOWMED CT coded terms constrained to 
+         either:
+         
+         SNOMED CT Preferred Terms for             SNOMED CT Code
+         Type of Medication Vocabulary 
+       
+         Over the counter products                  329505003 
+        
+         Prescription Drug                          73639000 
+         
+       </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="core:codedValue"> </xs:restriction>
+      </xs:simpleContent>
+
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="status">
+    <xs:annotation>
+      <xs:documentation> Status: 
+           Shall be a coded value constrained to the set of HL7 MedicationStatusCodes
+           
+        </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="core:codedValue"> </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="orderInformation">
+    <xs:complexType>
+      <xs:attribute name="orderNumber" use="optional"/>
+      <xs:attribute name="experiationDate" use="optional" type="xs:date"/>
+      <xs:attribute name="quantity" use="optional" type="xs:int"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="perscription">
+    <xs:complexType>
+      <xs:attribute name="perscriptionNumber" use="optional"/>
+      <xs:attribute name="quantity" use="optional" type="xs:int"/>
+      <xs:attribute name="fillNumber" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="product">
+    <xs:annotation>
+      <xs:documentation> 
+        name: the free text name of the manufactured product 
+        code: the coded value of the manufactured product 
+        
+        optional elements: 
+         lotNumber: the lot number which this drug belongs to 
+         manufacturer: the manufacturer of the  product in question
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="name" type="xs:string"/>
+        <xs:element name="code" type="core:codedValue" minOccurs="0"/>
+        <xs:element name="lotNumber" type="xs:string" minOccurs="0"/>
+        <xs:element name="brandName" type="xs:string" minOccurs="0"/>
+        <xs:element name="manufacturer" type="core:organization.class" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

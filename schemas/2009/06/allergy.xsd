@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Copyright 2009 The MITRE Corporation 
+  
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. 
+  You may obtain a copy of the License at 
+  
+  http://www.apache.org/licenses/LICENSE-2.0 
+  
+  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+  language governing permissions and limitations under the License. 
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/allergy"
+  xmlns:allergy="http://projecthdata.org/hdata/schemas/2009/06/allergy"
+  xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
+  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
+    schemaLocation="core_data_types.xsd"/>
+  <xs:element name="allergy">
+    <xs:annotation>
+      <xs:documentation>
+      
+      This section is used to describe a patients allergies and intolerances to various substances.  The section defines a number of 
+      codedValue sections which are constrained to particular coding system (SNOMED CT) which are described below.
+      
+      The date element is used to state the date of the last reaction to the allergy or intolerance.
+      
+      The product element is a coded value used to describe the substance the patient has the allergy or intolerance too.  There currently is 
+      not a constraint defined on the code system or code values which can be used to coded the product. At the very least a free text description
+      the substance must be supplied as the value of the product element with implementers free to choose the coding system of their choice.
+      
+      
+      This section also contains optional informationSource and description elements which are defined and documented in the 
+      abstractSection type declared in the hdata core.xsd schema file.
+      
+      
+      
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="allergy:product"/>
+        <xs:element ref="allergy:type" minOccurs="0"/>
+        <xs:element ref="core:date" minOccurs="0"/>
+        <xs:element ref="allergy:reaction"/>
+        <xs:element ref="allergy:severity" minOccurs="0"/>
+        <xs:group ref="core:abstractSection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="type">
+    <xs:annotation>
+      <xs:documentation>
+        The type of the allergy/intolerance in question will come from the constrained set of SNOWMED CT codes provided below.
+        This table of information is the same constrained set from the HITSP C32 Allergy section
+        
+        
+        SNOMED CT Preferred Terms            SNOMED  CT Code                  Usage  
+        for Adverse Event Type 
+        
+        
+        propensity to adverse reactions          420134006           Used to record an adverse reaction. 
+        
+        propensity to adverse reactions to       418038007           Used to record an adverse reaction to an environmental agent. 
+        substance 
+        
+        propensity to adverse reactions to      419511003           Used to record an adverse reaction to a drug. 
+        drug 
+        
+        propensity to adverse reactions to       418471000           Used to record an adverse reaction to a food.
+        food 
+        
+        allergy to substance                     419199007            Used to record an allergy to an environmental agent. 
+        drug allergy                             416098002            Used to record an allergy to a drug. 
+        food allergy                             414285001            Used to record an allergy to a food. 
+        drug intolerance                         59037007             Used to record intolerance to a drug. 
+        food intolerance                         235719002            Used to record intolerance to a food. 
+        
+        
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+
+        <xs:restriction base="core:codedValue"> </xs:restriction>
+
+      </xs:simpleContent>
+
+    </xs:complexType>
+
+  </xs:element>
+  <xs:element name="product" type="core:codedValue"> </xs:element>
+  <xs:element name="reaction">
+    <xs:annotation>
+      <xs:documentation>
+        As with the HITSP C32 Document the reaction to the allergy/intolorance shall
+        be expressed  using the VA/KP Problem List Subset of SNOMED CT, and shall be terms that descend from 
+        the clinical finding (404684003) concept. The OID for this vocabulary is 2.16.840.1.113883.6.96. The problem list subset 
+        can be obtained from www.cancer.gov/cancertopics/terminologyresources/FDA. 
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="core:codedValue"> </xs:restriction>
+      </xs:simpleContent>
+
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="severity">
+    <xs:annotation>
+      <xs:documentation>
+     The severity of a given allergy/intolorance shall be expressed from the constrained set of SNOWMED CT codes:
+     
+    mild                              255604002 
+    mild to moderate                  371923003 
+    moderate                          6736007 
+    moderate to severe                371924009 
+    severe                            24484000 
+    fatal                             399166001 
+ 
+   </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+
+        <xs:restriction base="core:codedValue"> </xs:restriction>
+
+      </xs:simpleContent>
+
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Copyright 2009 The MITRE Corporation 
+  
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. 
+  You may obtain a copy of the License at 
+  
+  http://www.apache.org/licenses/LICENSE-2.0 
+  
+  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+  language governing permissions and limitations under the License. 
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/condition"
+  xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
+  xmlns:conditions="http://projecthdata.org/hdata/schemas/2009/06/condition">
+  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
+    schemaLocation="core_data_types.xsd"/>
+  <xs:element name="problem">
+    <xs:annotation>
+      <xs:documentation>
+        This section is used to describe a patients problems/conditions. The types of conditions described have been constrained to the SNOMED CT 
+        Problem Type code set.
+        
+        The dateRange element is used to define the time during which the condition was last observed/active. 
+        
+        The type element is used to describe the type of problem/condition.
+        
+        An unbounded number of treating providers for the particular condition can be supplied.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="conditions:type"/>
+        <xs:element ref="core:dateRange"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="conditions:treatingProvider"/>
+        <xs:group ref="core:abstractSection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="type">
+    <xs:annotation>
+      <xs:documentation>
+        
+        This element is used to describe the type of problem/condition contained in this section. The possible values 
+        for this have been constrained to the SNOMED CT Problem Type code set provided below for reference. 
+        
+        Problem Type Vocabulary 
+        SNOMED CT Terms for Problem Type SNOMED CT Code 
+        Finding 404684003 
+        Symptom 418799008 
+        Problem 55607006 
+        Complaint 409586006 
+        Condition 64572001 
+        Diagnosis 282291009 
+        Functional limitation 248536006 
+        
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="core:codedValue"> </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="treatingProvider">
+    <xs:annotation>
+      <xs:documentation>
+        Describes a person/organization that has provided treatment for the given condition. 
+        
+        The dateRange element describes the last range that the actor provided treatment for the 
+        condition.
+        
+        The provider is represented by the core:actor substitution group which equates to either a 
+        person element or and organization element being present.
+        
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="core:dateRange"/>
+        <xs:element ref="core:actor"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

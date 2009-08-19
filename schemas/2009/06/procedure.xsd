@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Copyright 2009 The MITRE Corporation 
+  
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. 
+  You may obtain a copy of the License at 
+  
+  http://www.apache.org/licenses/LICENSE-2.0 
+  
+  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+  language governing permissions and limitations under the License. 
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/procedure"
+  xmlns:procedure="http://projecthdata.org/hdata/schemas/2009/06/procedure"
+  xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
+  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
+    schemaLocation="core_data_types.xsd"/>
+  <xs:element name="procedure">
+    <xs:annotation>
+      <xs:documentation>
+        
+        dateRange: defines the date range of the procedure
+        
+        type: codedValue used to define the type of procedure performed. The coded value attributes are not currently constrained
+              but a free text description of the type of procedure must be supplied as the value for the type element.
+              
+         status:  codedValue used to define the current status of the procedure. 
+         
+         product: codedValue used to define any products used during the procedure
+         
+         substance: codedValue used to represent what the procedure was performed on.
+         
+         performer: the person or organization that performed the procedure.
+         
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="type" type="core:codedValue"/>
+        <xs:element ref="core:dateRange" minOccurs="0"/>
+        <xs:element name="status" type="core:codedValue" minOccurs="0"/>
+        <xs:element name="product" type="core:codedValue" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="substance" type="core:codedValue" minOccurs="0"/>
+        <xs:element name="performer" type="core:actor" minOccurs="0"/>
+        <xs:group ref="core:abstractSection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
