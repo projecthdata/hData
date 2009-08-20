@@ -32,8 +32,8 @@
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="conditions:type"/>
-        <xs:element ref="core:dateRange"/>
+        <xs:element ref="conditions:type" minOccurs="0"/>
+        <xs:element ref="core:dateRange" minOccurs="0"/>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="conditions:treatingProvider"/>
         <xs:group ref="core:abstractSection"/>
       </xs:sequence>

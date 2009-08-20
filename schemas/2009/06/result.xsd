@@ -11,8 +11,12 @@
   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
   language governing permissions and limitations under the License. 
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/result" xmlns:results="http://projecthdata.org/hdata/schemas/2009/06/result" xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
-  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core" schemaLocation="core_data_types.xsd"/>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/result"
+  xmlns:results="http://projecthdata.org/hdata/schemas/2009/06/result"
+  xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
+  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
+    schemaLocation="core_data_types.xsd"/>
   <xs:element name="result">
     <xs:annotation>
       <xs:documentation>
@@ -34,7 +38,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="id" type="xs:string" minOccurs="0"/>
-        <xs:element ref="core:date" />
+        <xs:element ref="core:date"/>
         <xs:element name="resultType" type="core:codedValue"/>
         <xs:element ref="results:value"/>
         <xs:element name="interpretation" type="core:codedValue" minOccurs="0"/>
@@ -43,17 +47,17 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  
-  <xs:element name="value" abstract="false" type="xs:anyType"></xs:element>
- 
+
+  <xs:element name="value" abstract="false" type="xs:anyType"/>
+
   <xs:complexType name="unitValue">
     <xs:attribute name="unit" use="required"/>
     <xs:attribute name="value" use="required"/>
   </xs:complexType>
 
-  <xs:complexType name="bp">
-    <xs:attribute name="distolic"></xs:attribute>
-    <xs:attribute name="systolic"></xs:attribute>
+  <xs:complexType name="blood_presure">
+    <xs:attribute name="diastolic"/>
+    <xs:attribute name="systolic"/>
   </xs:complexType>
 
 </xs:schema>

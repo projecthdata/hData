@@ -20,20 +20,13 @@
   <xs:element name="encounter">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="provider" type="core:actor"/>
-        <xs:element ref="encounter:type" minOccurs="0"/>
-        <xs:element ref="core:dateRange"/>
+        <xs:element name="provider" type="core:actor" minOccurs="0"/>
+        <xs:element  name="type"  type="core:codedValue"  minOccurs="0"/>
+        <xs:element ref="core:dateRange" minOccurs="0"/>
         <xs:group ref="core:abstractSection"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="type">
-    <xs:complexType>
-      <xs:simpleContent>
-        <xs:restriction base="core:codedValue"> </xs:restriction>
-      </xs:simpleContent>
-    </xs:complexType>
-  </xs:element>
-
+ 
 </xs:schema>
