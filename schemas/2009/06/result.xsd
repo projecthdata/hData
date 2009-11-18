@@ -48,7 +48,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="id" type="xs:string" minOccurs="0"/>
-        <xs:element ref="core:date" />
+        <xs:element ref="core:date"/>
         <xs:element name="resultType" type="core:codedValue"/>
         <xs:element ref="results:value"/>
         <xs:element name="interpretation" type="core:codedValue" minOccurs="0"/>
@@ -64,17 +64,17 @@
       </xs:attribute>
     </xs:complexType>
   </xs:element>
-  
-  <xs:element name="value" abstract="false" type="xs:anyType"></xs:element>
- 
+
+  <xs:element name="value" abstract="false" type="xs:anyType"/>
+
   <xs:complexType name="unitValue">
     <xs:attribute name="unit" use="required"/>
     <xs:attribute name="value" use="required"/>
   </xs:complexType>
 
-  <xs:complexType name="bp">
-    <xs:attribute name="distolic"></xs:attribute>
-    <xs:attribute name="systolic"></xs:attribute>
+  <xs:complexType name="blood_presure">
+    <xs:attribute name="diastolic"/>
+    <xs:attribute name="systolic"/>
   </xs:complexType>
 
 </xs:schema>

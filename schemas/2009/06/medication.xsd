@@ -38,7 +38,7 @@
         <xs:element ref="medication:type" minOccurs="0"/>
         <xs:element ref="medication:status" minOccurs="0"/>
         <xs:element ref="medication:orderInformation" minOccurs="0"/>
-        <xs:element ref="medication:perscription" minOccurs="0"/>
+        <xs:element ref="medication:prescription" minOccurs="0"/>
         <xs:group ref="core:abstractSection"/>
       </xs:sequence>
       <xs:attribute name="contentType" type="xs:anyURI" fixed="http://projecthdata.org/hdata/schemas/2009/06/medication">
@@ -93,9 +93,9 @@
       <xs:attribute name="quantity" use="optional" type="xs:int"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="perscription">
+  <xs:element name="prescription">
     <xs:complexType>
-      <xs:attribute name="perscriptionNumber" use="optional"/>
+      <xs:attribute name="prescriptionNumber" use="optional"/>
       <xs:attribute name="quantity" use="optional" type="xs:int"/>
       <xs:attribute name="fillNumber" use="optional"/>
     </xs:complexType>
