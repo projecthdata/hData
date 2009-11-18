@@ -47,7 +47,7 @@
         <xs:element name="effectiveDate" type="core:dateRange"/>
         <xs:element name="role" type="core:codedValue"/> 
         <xs:element name="type" type="core:codedValue"/>
-        <xs:element ref="core:actor"/>
+        <xs:element name="name" type="core:actor"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
