@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2009 The MITRE Corporation
+    
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License. -->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:hd-md="http://projecthdata.org/hdata/schemas/2009/11/metadata"
+    xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+    targetNamespace="http://projecthdata.org/hdata/schemas/2009/11/metadata">
+
+    <xs:import namespace="http://www.w3.org/2000/09/xmldsig#"
+            schemaLocation="http://www.w3.org/TR/2002/REC-xmldsig-core-20020212/xmldsig-core-schema.xsd"/>
+    <xs:complexType name="DocumentMetaData">
+        <xs:annotation>
+            <xs:documentation>
+                DocumentMetaData is the top-level element for the hData meta data specification. It is 
+                embedded with every Atom 1.0 Content node.  
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="PedigreeInfo" type="hd-md:PedigreeInfo">
+                <xs:annotation>
+                    <xs:documentation>
+                        This optional node holds the pedigree information for the Section Document. 
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DocumentId" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        This required element holds an identifier for the Section Document. It MUST be unique over any given 
+                        Section feed. 
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="LinkedDocuments">
+                <xs:annotation>
+                    <xs:documentation>
+                        This optional node holds a list of URI links to documents that are related to this
+                        Section Document. Use depends on the semantics of the Section Document Type. 
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="Link" type="hd-md:LinkInfo"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="RecordDate">
+                <xs:annotation>
+                    <xs:documentation>
+                        This required node holds the information about Document creation and modification. 
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="CreatedDateTime" type="xs:dateTime">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    This required element contains the dateTime of creation of this documment.
+                                    If this document is not derived (see PedigreeInfo), this is the time of the 
+                                    creation of the original. If this document is derived from another origin, this element
+                                    contains the date of derivation. 
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="Modified">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    This optional node is first created when the document is changed for the first time. 
+                                    It contains a collection of modification dates with optional pedigree information of the 
+                                    modifier. 
+                                </xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence minOccurs="1" maxOccurs="unbounded">
+                                    <xs:element name="ModifiedDateTime" type="xs:dateTime">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                This required element record a dateTime when the document was modified. 
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="PedigreeInfo"
+                                        type="hd-md:PedigreeInfo">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                This optional node contains the pedigree information of the modifier. 
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Confidentiality" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        This element contains controls for confidentiality - details are TBD. 
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="AccessControl">
+                <xs:annotation>
+                    <xs:documentation>
+                        This element contains controls for access control - details are TBD. 
+                    </xs:documentation>
+                </xs:annotation>
+
+            </xs:element>
+            <xs:element minOccurs="0" name="Consent">
+                <xs:annotation>
+                    <xs:documentation>
+                        This element contains controls for consent - details are TBD. 
+                    </xs:documentation>
+                </xs:annotation>
+
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="MediaType" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    This attribute contains the media type of the document itself. If it is not present, the 
+                    default media type of the content type is assumed. 
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="ContentType" type="xs:anyURI" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+                    This attribute contains the URI for the content type of this document. If it is not present, 
+                    the content type for the Section is implied. Note that the current hData Content Profiles assume
+                    that the content type for all Section Documents within a given Section is uniform. 
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="PedigreeInfo">
+        <xs:annotation>
+            <xs:documentation>
+                This node contains the pedigree information. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="XmlSignature" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation> This optional node contains the signature information on
+                        the document or this meta data. </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ds:Signature">
+                            <xs:annotation>
+                                <xs:documentation> This Signature MUST contain: 1. a valid Reference
+                                    to either the metadata or the Section Document 2. the ds:KeyInfo
+                                    for the signer (optional with DSig - required here)
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+
+
+                    <xs:attribute name="documentMethod">
+                        <xs:annotation>
+                            <xs:documentation>This optional attribute indicates what method was used
+                            to transform binary Section Document mediatypes into XML files for
+                            signature. Currently the only permitted methods are xml and base64.
+                            xml is the default XML signature over XML documents. base64 encodes
+                            a data stream into an XML document. The root node it root and
+                            contains the BASE64 encoded data. </xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="base64"/>
+                                <xs:enumeration value="xml"/>
+                                <xs:enumeration value="sha256"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" name="Source">
+                <xs:annotation>
+                    <xs:documentation>This node indicates the source of this data. </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="PedigreeInfo" type="hd-md:PedigreeInfo" minOccurs="0"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="Document"
+                            type="hd-md:LinkInfo"/>
+                    </xs:sequence>
+                    <xs:attribute name="derived" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>If the data is derived (i.e. copied or compiled from other sources) this attribute MUST be set to true. </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Author" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>The identifier of the creators of this document. For derived documents, this is the author. Note that this identifier can identify machines as well as humans. </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="Organization" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>This element identifies the organization. </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="LinkInfo">
+        <xs:sequence>
+            <xs:element name="Target" type="xs:anyURI"/>
+            <xs:any maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

@@ -11,10 +11,26 @@
   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
   language governing permissions and limitations under the License. 
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/support" xmlns:support="http://projecthdata.org/hdata/schemas/2009/06/support" xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
+<xs:schema 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  elementFormDefault="qualified" 
+  targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/support" 
+  xmlns:support="http://projecthdata.org/hdata/schemas/2009/06/support" 
+  xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
+  xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+  xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+  jxb:extensionBindingPrefixes="xjc"
+  jxb:version="2.1">
+  
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core" schemaLocation="core_data_types.xsd"/>
   <xs:element name="support">
     <xs:annotation>
+      <xs:appinfo>
+      <jxb:globalBindings>
+        <jxb:serializable/>
+        <xjc:superClass name="org.mitre.hdata.hrf.SectionDocument"/>
+      </jxb:globalBindings>
+    </xs:appinfo>
       <xs:documentation>
         This element is used to define individuals who provide support to the patient.
         
@@ -36,8 +52,13 @@
         <xs:element ref="core:person"/>
         <xs:group ref="core:abstractSection"/>
       </xs:sequence>
+      <xs:attribute name="contentType" type="xs:anyURI" fixed="http://projecthdata.org/hdata/schemas/2009/06/support">
+        <xs:annotation>
+          <xs:appinfo>
+            <jxb:property name="CONTENT_TYPE" fixedAttributeAsConstantProperty="true"/>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:attribute>
     </xs:complexType>
   </xs:element>
-  
-  
 </xs:schema>

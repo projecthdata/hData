@@ -14,26 +14,47 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
   targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/encounter"
   xmlns:encounter="http://projecthdata.org/hdata/schemas/2009/06/encounter"
-  xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
+  xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
+  >
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
     schemaLocation="core_data_types.xsd"/>
+  
   <xs:element name="encounter">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="provider" type="core:actor"/>
-        <xs:element ref="encounter:type" minOccurs="0"/>
-        <xs:element ref="core:dateRange"/>
-        <xs:group ref="core:abstractSection"/>
+        <xs:element name="informer" type="core:informant"/>
+        <xs:element name="type" type="encounter:encounterType" maxOccurs="unbounded">
+        </xs:element>
+        <xs:element name="effectiveDate" type="core:dateRange"/>
+        <xs:element name="text" type="xs:string"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-
-  <xs:element name="type">
-    <xs:complexType>
-      <xs:simpleContent>
-        <xs:restriction base="core:codedValue"> </xs:restriction>
-      </xs:simpleContent>
-    </xs:complexType>
-  </xs:element>
-
+  
+  <xs:complexType name="encounterType" abstract="true" >
+    <xs:complexContent>
+      <xs:restriction base="core:codedValue">
+        <xs:annotation>
+          <xs:documentation>
+            This is a coded value describing the type of the Encounter and SHOULD be coded
+            using CPT-4 E&amp;M Codes. (C32-[203])
+            
+            CPT-4 codes are licensed by the AMA and are not freely available. HITSP C32 overrides
+            the CCD Implementation Guide recommendation for this value set. CCD Implementation
+            Guide recommends an HL7-defined value set.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element form="unqualified" name="value" type="xs:string"/>
+        </xs:sequence>
+        <xs:attribute name="code" type="xs:string" use="required"/>
+        <xs:attribute name="displayName" type="xs:string" />
+        <xs:attribute name="codeSystemName" type="xs:string" fixed="CPT-4 E&amp;M" />
+        <xs:attribute name="codeSystem" type="xs:string" fixed="2.16.840.1.113883.6.12" use="required"/>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  
 </xs:schema>

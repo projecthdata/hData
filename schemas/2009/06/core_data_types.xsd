@@ -15,98 +15,227 @@
   targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/core"
   xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
 
-
-  <xs:element name="date" type="xs:dateTime"/>
-  <xs:element name="dateRange">
-    <xs:complexType>
-      <xs:attribute name="high" type="xs:dateTime"/>
-      <xs:attribute name="low" use="required" type="xs:dateTime"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:complexType name="codedValue">
-    <xs:simpleContent>
-      <xs:extension base="xs:string">
-        <xs:attribute name="code"/>
-        <xs:attribute name="codeSystem"/>
-        <xs:attribute name="version"/>
-        <xs:attribute name="displayName"/>
-      </xs:extension>
-    </xs:simpleContent>
+  <xs:complexType name="dateRange">
+    <xs:attribute name="high" type="xs:dateTime"/>
+    <xs:attribute name="low" use="required" type="xs:dateTime"/>
   </xs:complexType>
-  <xs:element name="name">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="title" type="xs:string"/>
-        <xs:element name="given" type="xs:string" maxOccurs="unbounded"/>
-        <xs:element name="lastname" type="xs:string"/>
-        <xs:element minOccurs="0" name="suffix" type="xs:string"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
 
-  <xs:element name="address">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="streetAddress" minOccurs="0" maxOccurs="unbounded" type="xs:string"/>
-        <xs:element name="city" type="xs:string"/>
-        <xs:element minOccurs="0" name="stateOrProvince" type="xs:string"/>
-        <xs:element name="zip" minOccurs="0" type="xs:string"/>
-        <xs:element minOccurs="0" name="country" type="xs:string"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+  <xs:complexType name="codedValue">
+    <xs:sequence>
+      <xs:element form="unqualified" minOccurs="0" name="value" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute name="code" use="required"/>
+    <xs:attribute name="codeSystem" type="xs:string" use="required"/>
+    <xs:attribute name="codeSystemName" type="xs:string"/>
+    <xs:attribute name="version" use="optional"/>
+    <xs:attribute name="displayName" type="xs:string" use="optional"/>
+  </xs:complexType>
 
-  <xs:element name="telecom">
-    <xs:complexType>
-      <xs:attribute name="value" use="required"/>
-      <xs:attribute name="use" use="required"/>
-      <xs:attribute default="false" name="prefered" type="xs:boolean"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="actor" abstract="true">
+  <xs:complexType name="name">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="title" type="xs:string"/>
+      <xs:element name="given" type="xs:string" maxOccurs="unbounded"/>
+      <xs:element minOccurs="0" name="lastname" type="xs:string"/>
+      <xs:element minOccurs="0" name="suffix" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="address">
+    <xs:sequence>
+      <xs:element name="streetAddress" minOccurs="0" maxOccurs="unbounded" type="xs:string"/>
+      <xs:element name="city" type="xs:string"/>
+      <xs:element minOccurs="0" name="stateOrProvince" type="xs:string"/>
+      <xs:element name="zip" minOccurs="0" type="xs:string"/>
+      <xs:element minOccurs="0" name="country" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="telecom">
+    <xs:attribute name="value" use="required"/>
+    <xs:attribute name="use" use="required"/>
+    <xs:attribute default="false" name="prefered" type="xs:boolean"/>
+  </xs:complexType>
+
+  <!--
+  Restrictions
+-->
+
+  <xs:complexType name="gender">
     <xs:annotation>
-      <xs:documentation>
-            An actor is a generic type used to define various entities within the document. This will generally be a person, such as a 
-            point of contact,doctor, guardian ... , or an organization, such as insurance provider, care provider ...
-        </xs:documentation>
+      <xs:documentation> HL7 AdministrativeGender codes M - Male F - Female UN- Undifferentiated
+      </xs:documentation>
     </xs:annotation>
-  </xs:element>
-  <xs:complexType name="actor">
+    <xs:complexContent>
+      <xs:restriction base="core:codedValue">
+        <xs:attribute name="code" use="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="M"/>
+              <xs:enumeration value="F"/>
+              <xs:enumeration value="UN"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="codeSystemName" type="xs:string" fixed="HL7 AdministrativeGenderCode"/>
+        <xs:attribute name="codeSystem" type="xs:string" use="required"
+          fixed="2.16.840.1.113883.5.1"/>
+        <xs:attribute name="version"/>
+        <xs:attribute name="displayName">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="Male"/>
+              <xs:enumeration value="Female"/>
+              <xs:enumeration value="Undifferentiated"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="language">
+    <xs:complexContent>
+      <xs:restriction base="core:codedValue">
+        <xs:attribute name="code" type="xs:string" use="required"/>
+        <xs:attribute name="codeSystem" type="xs:string" use="required"/>
+        <xs:attribute name="codeSystemName" type="xs:string"/>
+        <xs:attribute name="version" use="optional"/>
+        <xs:attribute name="displayName" type="xs:string" use="optional"/>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="maritalStatus">
+    <xs:annotation>
+      <xs:documentation> Marital status shall be represented by HL7 Marital status vocabulary V15929
+        The marital status of the patient at date of admission, outpatient service or start of care.
+        Values such as: single married, Life Partner, Legally Separated, Divorced, Widowed, Unknown.
+        Form Locator 16 in the NUBC document. This is to be used only in situations where
+        regulations require the use of NUBC marital status codes. A Annulled Marriage contract has
+        been declared null and to not have existed D Divorced Marriage contract has been declared
+        dissolved and inactive I Interlocutory Subject to an Interlocutory Decree. L Legally
+        Separated M Married A current marriage contract is active P Polygamous More than 1 current
+        spouse S Never Married No marriage contract has ever been entered T Domestic partner Person
+        declares that a domestic partner relationship exists. W Widowed The spouse has died
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:restriction base="core:codedValue">
+        <xs:attribute name="code" use="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="A"/>
+              <xs:enumeration value="D"/>
+              <xs:enumeration value="I"/>
+              <xs:enumeration value="L"/>
+              <xs:enumeration value="M"/>
+              <xs:enumeration value="P"/>
+              <xs:enumeration value="S"/>
+              <xs:enumeration value="T"/>
+              <xs:enumeration value="W"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="displayName" use="optional">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="Annulled"/>
+              <xs:enumeration value="Divorced"/>
+              <xs:enumeration value="Interlocutory"/>
+              <xs:enumeration value="Legally Separated"/>
+              <xs:enumeration value="Married"/>
+              <xs:enumeration value="Polygamous"/>
+              <xs:enumeration value="Never Married"/>
+              <xs:enumeration value="Domestic Partner"/>
+              <xs:enumeration value="Widowed"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="codeSystemName" type="xs:string" fixed="HL7 MaritalStatusCode"/>
+        <xs:attribute name="codeSystem" use="required" type="xs:string" fixed="2.16.840.1.113883.5.2"/>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="race">
+    <xs:complexContent>
+      <xs:restriction base="core:codedValue">
+        <xs:attribute name="code" use="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="1004-1"/>
+              <xs:enumeration value="2028-9"/>
+              <xs:enumeration value="2058-6"/>
+              <xs:enumeration value="2076-8"/>
+              <xs:enumeration value="2106-3"/>
+              <xs:enumeration value="2131-1"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="displayName" use="optional">
+          <xs:annotation>
+            <xs:documentation source="http://www.whitehouse.gov/omb/fedreg/ombdir15.html"> OFFICE OF
+              MANAGEMENT AND BUDGET Revisions to the Standards for the Classification of Federal
+              Data on Race and Ethnicity </xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="American Indian or Alaska Native"/>
+              <xs:enumeration value="Asian"/>
+              <xs:enumeration value="Black or African American"/>
+              <xs:enumeration value="Native Hawaiian or Other Pacific Islander"/>
+              <xs:enumeration value="White"/>
+              <xs:enumeration value="Other Race"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="codeSystemName" type="xs:string" fixed="CDC Race and Ethnicity"/>
+        <xs:attribute name="codeSystem" use="required" type="xs:string"
+          fixed="2.16.840.1.113883.6.238"/>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!--
+    <xs:complexType name="actor">
+    <xs:annotation>
+      <xs:documentation> An actor is a generic type used to define various entities within the
+        document. This will generally be a person, such as a point of contact,doctor, guardian ... ,
+        or an organization, such as insurance provider, care provider ... </xs:documentation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element ref="core:actor"/>
     </xs:sequence>
   </xs:complexType>
+
   <xs:element name="organization" substitutionGroup="core:actor" type="core:organization.class"/>
+
   <xs:element name="person" substitutionGroup="core:actor" type="core:person.class"/>
-  <xs:complexType name="person.class">
+-->
+  
+  <xs:complexType name="person">
     <xs:annotation>
-      <xs:documentation>
-            Generic definition of a person. name address, contact information such as telephone , email ...
-            This is represented as a class of object so the same basic person structure can be used to define 
-            multiple types of elements , such as patient, author, .... 
-            
-            name: the name of the individual, see the definition of name
-            address: 0 or more address entries, see the definition of address
-            telecom: 0 or more telecom entries, see the definition of telecom
-        </xs:documentation>
+      <xs:documentation> Generic definition of a person. name address, contact information such as
+        telephone , email ... This is represented as a class of object so the same basic person
+        structure can be used to define multiple types of elements , such as patient, author, ....
+        name: the name of the individual, see the definition of name address: 0 or more address
+        entries, see the definition of address telecom: 0 or more telecom entries, see the
+        definition of telecom </xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element ref="core:name"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="core:address"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="core:telecom"/>
+      <xs:element name="name" type="core:name"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="address" type="core:address"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="telecom" type="core:telecom"/>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="organization.class">
+  
+  <xs:complexType name="organization">
     <xs:annotation>
-      <xs:documentation> Base class definition of an organization. 
-            
-            An organization can have 0 or more points of contact which are represented as poc elements of type person.class
-            
-            name: the Name of the organization , simple String value
-            pointsOfContact:  wrapper element around 0 or more poc elements.  poc elements are structured as person.class elements 
-            address: 0 or more address elements for the given organization
-            
-        </xs:documentation>
+      <xs:documentation> Base class definition of an organization. An organization can have 0 or
+        more points of contact which are represented as poc elements of type person.class name: the
+        Name of the organization , simple String value pointsOfContact: wrapper element around 0 or
+        more poc elements. poc elements are structured as person.class elements address: 0 or more
+        address elements for the given organization </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element name="name" type="xs:string"/>
@@ -114,47 +243,29 @@
         <xs:complexType>
           <xs:sequence>
             <xs:element minOccurs="0" maxOccurs="unbounded" name="pointOfContact" form="unqualified"
-              type="core:person.class"/>
+              type="core:person"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="core:address"/>
+      <xs:element name="address" minOccurs="0" maxOccurs="unbounded" type="core:address"/>
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="informationSource">
-    <xs:complexType>
+  
+  <xs:complexType name="actor">
+      <xs:choice>
+        <xs:element name="person" type="core:person"/>
+        <xs:element name="organization" type="core:organization"/>
+      </xs:choice>
+  </xs:complexType>
+  
+  <xs:complexType name="informant">
       <xs:sequence>
-        <xs:element name="author" type="core:person.class" minOccurs="0"/>
-        <xs:element ref="core:date" minOccurs="0"/>
-        <xs:element name="reference" type="xs:string" minOccurs="0"/>
-        <xs:element name="informant" type="core:actor"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="contact" type="core:person"/>
+        <xs:element minOccurs="0" maxOccurs="1" name="organization" type="core:organization"/>
       </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+  </xs:complexType>
+  
 
-  <xs:element name="description">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="text" type="xs:string"/>
-        <xs:element name="codedValue" minOccurs="0" maxOccurs="unbounded" type="core:codedValue"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-
-
-
-  <xs:group name="abstractSection">
-    <xs:annotation>
-      <xs:documentation> 
-          This definition is used to add data structures that will be common across all hData modules.  An hData module implementation
-          will simply need to add this definition as a reference to obtain all of the common behavior
-        </xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:sequence minOccurs="0">
-        <xs:element ref="core:informationSource" minOccurs="0"/>
-        <xs:element ref="core:description" minOccurs="0"/>
-      </xs:sequence>
-    </xs:sequence>
-  </xs:group>
 </xs:schema>
+
+

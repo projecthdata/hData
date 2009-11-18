@@ -11,10 +11,16 @@
   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
   language governing permissions and limitations under the License. 
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/provider" xmlns:provider="http://projecthdata.org/hdata/schemas/2009/06/provider" xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  elementFormDefault="qualified" 
+  targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/provider" 
+  xmlns:provider="http://projecthdata.org/hdata/schemas/2009/06/provider" 
+  xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
+  
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core" schemaLocation="core_data_types.xsd"/>
   <xs:element name="provider">
-    <xs:annotation><xs:documentation>
+    <xs:annotation>
+      <xs:documentation>
       
       This section is used to describe a patients healthcare provider.
       
@@ -33,17 +39,15 @@
      file.
      
      This section also contains optional informationSource and description elements defined and documented in the core.xsd schema file.
-     
-     
-    </xs:documentation></xs:annotation>
+      </xs:documentation>
+    </xs:annotation>
     <xs:complexType>
       <xs:sequence>
         <xs:element name="patientId" type="xs:string"/>
-        <xs:element ref="core:dateRange"/>
+        <xs:element name="effectiveDate" type="core:dateRange"/>
         <xs:element name="role" type="core:codedValue"/> 
         <xs:element name="type" type="core:codedValue"/>
         <xs:element ref="core:actor"/>
-        <xs:group ref="core:abstractSection"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>

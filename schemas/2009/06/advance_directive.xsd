@@ -14,43 +14,41 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
   targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/advance_directive"
   xmlns:ad="http://projecthdata.org/hdata/schemas/2009/06/advance_directive"
+  xmlns:adt="http://projecthdata.org/hdata/schemas/2009/06/advance_directive_types"
   xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
+  
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
     schemaLocation="core_data_types.xsd"/>
-  <xs:annotation>
-    <xs:documentation>
-      This section contains information regarding any advance directive pertaining to a patient and a reference to the most
-      up to date supporting documents for the directives.  This is used to describe such information as a patients resusitation
-      status and the like.
-      
-      
-      The type element is a codedValue object that is used to describe what kind of advance directive this is.  This specification does not currently
-      state a required code system such as SNOMED CT that should be used, this may change is future versions of the schema. The use of the codedValues
-      attributes are optional but a system must at the very least include a free text description of the directive as the value of the type element.
-      
-      The date element denotes the date the directive was last updated.
-      
-      The optional custodian element describes the person who currently is responsible for maintaing the advance directive.
-      
-      As with most other hData sections there is a informationSource (where this data originated) and description( free text narrative section) defined for this 
-      element, both of which are optional.
-    </xs:documentation>
-  </xs:annotation>
+  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/advance_directive_types"
+    schemaLocation="advance_directive_types.xsd"/>
+  
   <xs:element name="advanceDirective">
+    <xs:annotation>
+      <xs:documentation> This section contains information regarding any advance directive
+        pertaining to a patient and a reference to the most up to date supporting documents for the
+        directives. This is used to describe such information as a patients resusitation status and
+        the like. The type element is a codedValue object that is used to describe what kind of
+        advance directive this is. This specification does not currently state a required code
+        system such as SNOMED CT that should be used, this may change is future versions of the
+        schema. The use of the codedValues attributes are optional but a system must at the very
+        least include a free text description of the directive as the value of the type element. The
+        date element denotes the date the directive was last updated. The optional custodian element
+        describes the person who currently is responsible for maintaing the advance directive. As
+        with most other hData sections there is a informationSource (where this data originated) and
+        description( free text narrative section) defined for this element, both of which are
+        optional. </xs:documentation>
+    </xs:annotation>
     <xs:complexType>
+      <xs:annotation>
+        <xs:documentation> An Advance Directive Event entry. </xs:documentation>
+      </xs:annotation>
       <xs:sequence>
-        <xs:element name="type">
-          <xs:complexType>
-            <xs:simpleContent>
-              <xs:restriction base="core:codedValue"> </xs:restriction>
-            </xs:simpleContent>
-          </xs:complexType>
-        </xs:element>
-
-        <xs:element ref="core:date"/>
-        <xs:element name="custodian" type="core:actor" minOccurs="0"/>
-        <xs:group ref="core:abstractSection"/>
+        <xs:element name="code" type="adt:advanceDirectiveType"/>
+        <xs:element name="effectiveTime" type="core:dateRange"/>
+        <xs:element name="informant" type="core:informant" minOccurs="1" maxOccurs="unbounded"/>
+        <xs:element name="entryRelationship" type="adt:StatusObservation"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+
 </xs:schema>

@@ -14,27 +14,29 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
   targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/comment"
   xmlns:comments="http://projecthdata.org/hdata/schemas/2009/06/comment"
-  xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
+  xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
+  >
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
     schemaLocation="core_data_types.xsd"/>
-  <xs:annotation>
-    <xs:documentation>
-      This section is used to capture free text comments/narratives.  
-      
-      Date: the date the comment was created
-      
-      author:  the author of the comment
-      
-      text: the free text comment.
-      
-    </xs:documentation>
-  </xs:annotation>
+  
   <xs:element name="comment">
+    <xs:annotation>
+      <xs:documentation>
+        This section is used to capture free text comments/narratives.  
+        
+        Date: the date the comment was created
+        
+        author:  the author of the comment
+        
+        text: the free text comment.
+        
+      </xs:documentation>
+    </xs:annotation>
     <xs:complexType>
       <xs:sequence>
         <xs:element name="text" type="xs:string"/>
-        <xs:element ref="core:date" minOccurs="0"/>
-        <xs:element name="author" type="core:person.class"/>
+        <xs:element name="date" type="xs:dateTime" minOccurs="0"/>
+        <xs:element name="author" type="core:informant"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>

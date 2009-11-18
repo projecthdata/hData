@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Copyright 2009 The MITRE Corporation 
+    
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. 
+    You may obtain a copy of the License at 
+    
+    http://www.apache.org/licenses/LICENSE-2.0 
+    
+    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+    language governing permissions and limitations under the License. 
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:adt="http://projecthdata.org/hdata/schemas/2009/06/advance_directive_types"
+    xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
+    targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/advance_directive_types"> 
+
+    <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
+        schemaLocation="core_data_types.xsd"/>
+
+<xs:complexType name="advanceDirectiveType">
+    <xs:annotation>
+        <xs:documentation>
+            Advance directive type and free text type.
+        </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+        <xs:restriction base="core:codedValue">
+            <xs:attribute name="code" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="304251008"/>
+                        <xs:enumeration value="52765003"/>
+                        <xs:enumeration value="225204009"/>
+                        <xs:enumeration value="89666000"/>
+                        <xs:enumeration value="281789004"/>
+                        <xs:enumeration value="78823007"/>
+                        <xs:enumeration value="61420007"/>
+                        <xs:enumeration value="71388002"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="displayName" use="optional">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="Resuscitation"/>
+                        <xs:enumeration value="Intubation"/>
+                        <xs:enumeration value="IV Fluid and Support"/>
+                        <xs:enumeration value="CPR"/>
+                        <xs:enumeration value="Antibiotics"/>
+                        <xs:enumeration value="Life Support"/>
+                        <xs:enumeration value="Tube Feeding"/>
+                        <xs:enumeration value="Other Directive"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="codeSystemName" type="xs:string" fixed="SNOMED CT"/>
+            <xs:attribute name="codeSystem" type="xs:string"  use="required" fixed="2.16.840.1.113883.6.96"/>
+            
+        </xs:restriction>
+    </xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="StatusObservation">
+    <xs:annotation>
+        <xs:documentation>
+            An advance directive status observation.
+        </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+        <xs:restriction base="core:codedValue">
+            <xs:annotation>
+                <xs:documentation>
+                    code: displayName:
+                    425392003 Current and Verified
+                    425394002 Supported By Healthcare Will
+                    425393008 Supported By Durable Power of Attorney for Healthcare
+                    425396000 Verified With Family Only
+                    310305009 Verified By Medical Record Only
+                    
+                    codeSystemName=AdvanceDirectiveStatusCode
+                    codeSystem=2.16.840.1.113883.1.11.20.1
+                </xs:documentation>
+            </xs:annotation>
+            
+            
+            <xs:attribute name="code" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="425392003"/>
+                        <xs:enumeration value="425394002"/>
+                        <xs:enumeration value="425393008"/>
+                        <xs:enumeration value="425396000"/>
+                        <xs:enumeration value="310305009"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="codeSystem" type="xs:string" use="required" fixed="2.16.840.1.113883.1.11.20.1"/>
+            <xs:attribute name="codeSystemName" type="xs:string" fixed="AdvanceDirectiveStatusCode"/>
+            <xs:attribute name="version" use="optional"/>
+            <xs:attribute name="displayName" use="optional">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="Current and Verified"/>
+                        <xs:enumeration value="Supported By Healthcare Will"/>
+                        <xs:enumeration value="Supported By Durable Power of Attorney for Healthcare"/>
+                        <xs:enumeration value="Verified With Family Only"/>
+                        <xs:enumeration value="Verified By Medical Record Only"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:restriction>
+    </xs:complexContent>
+</xs:complexType>
+
+</xs:schema>

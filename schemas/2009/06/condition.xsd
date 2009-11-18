@@ -14,10 +14,15 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
   targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/condition"
   xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
-  xmlns:conditions="http://projecthdata.org/hdata/schemas/2009/06/condition">
+  xmlns:conditions="http://projecthdata.org/hdata/schemas/2009/06/condition"
+  xmlns:conditionst="http://projecthdata.org/hdata/schemas/2009/06/condition_types">
+  
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
     schemaLocation="core_data_types.xsd"/>
-  <xs:element name="problem">
+  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/condition_types"
+  schemaLocation="condition_types.xsd"/>
+  
+  <xs:element name="condition">
     <xs:annotation>
       <xs:documentation>
         This section is used to describe a patients problems/conditions. The types of conditions described have been constrained to the SNOMED CT 
@@ -32,58 +37,33 @@
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="conditions:type"/>
-        <xs:element ref="core:dateRange"/>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="conditions:treatingProvider"/>
-        <xs:group ref="core:abstractSection"/>
+        <xs:element name="conditionsType" type="conditionst:conditionType"/>
+        <xs:element name="effectiveDate" type="core:dateRange"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="treatingProvider">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:documentation>
+                Describes a person/organization that has provided treatment for the given condition. 
+                
+                The dateRange element describes the last range that the actor provided treatment for the 
+                condition.
+                
+                The provider is represented by the core:actor substitution group which equates to either a 
+                person element or and organization element being present.
+                
+              </xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:element name="effectiveDate" type="core:dateRange"/>
+              <xs:element name="actor" type="core:actor"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="text" type="xs:string" minOccurs="0"></xs:element>
+        <xs:element name="performer" type="core:actor" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="entryRelationship" type="conditionst:problemEntry" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="type">
-    <xs:annotation>
-      <xs:documentation>
-        
-        This element is used to describe the type of problem/condition contained in this section. The possible values 
-        for this have been constrained to the SNOMED CT Problem Type code set provided below for reference. 
-        
-        Problem Type Vocabulary 
-        SNOMED CT Terms for Problem Type SNOMED CT Code 
-        Finding 404684003 
-        Symptom 418799008 
-        Problem 55607006 
-        Complaint 409586006 
-        Condition 64572001 
-        Diagnosis 282291009 
-        Functional limitation 248536006 
-        
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:simpleContent>
-        <xs:restriction base="core:codedValue"> </xs:restriction>
-      </xs:simpleContent>
-    </xs:complexType>
-  </xs:element>
-
-  <xs:element name="treatingProvider">
-    <xs:annotation>
-      <xs:documentation>
-        Describes a person/organization that has provided treatment for the given condition. 
-        
-        The dateRange element describes the last range that the actor provided treatment for the 
-        condition.
-        
-        The provider is represented by the core:actor substitution group which equates to either a 
-        person element or and organization element being present.
-        
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="core:dateRange"/>
-        <xs:element ref="core:actor"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
 </xs:schema>
