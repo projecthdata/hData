@@ -15,20 +15,12 @@
   elementFormDefault="qualified" 
   targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/result" 
   xmlns:results="http://projecthdata.org/hdata/schemas/2009/06/result" 
-  xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
-  xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
-  xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
-  jxb:extensionBindingPrefixes="xjc"
-  jxb:version="2.1">
+  xmlns:resultst="http://projecthdata.org/hdata/schemas/2009/06/result_types" 
+  xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core" schemaLocation="core_data_types.xsd"/>
+  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/result_types" schemaLocation="result_types.xsd"/>
   <xs:element name="result">
     <xs:annotation>
-      <xs:appinfo>
-        <jxb:globalBindings>
-          <jxb:serializable/>
-          <xjc:superClass name="org.mitre.hdata.hrf.SectionDocument"/>
-        </jxb:globalBindings>
-      </xs:appinfo>
       <xs:documentation>
         This section is used to describe test results/vital signs.
         
@@ -47,34 +39,17 @@
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="id" type="xs:string" minOccurs="0"/>
-        <xs:element ref="core:date"/>
-        <xs:element name="resultType" type="core:codedValue"/>
-        <xs:element ref="results:value"/>
+        <xs:element name="effectiveTime" type="core:dateRange"/>
+        <xs:element name="resultType" type="resultst:resultType"/>
+        <xs:element name="value" type="xs:anyType"/><!-- CCD CONF-417: SHALL be expressed using UCUM expression when physical quantity -->
         <xs:element name="interpretation" type="core:codedValue" minOccurs="0"/>
-        <xs:element name="referenceRange" type="xs:string" minOccurs="0"/>
-        <xs:group ref="core:abstractSection"/>
+        <xs:element name="referenceRange" type="resultst:ResultReferenceRange" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="status" type="core:statusCode"/>
+        <xs:element name="interpretationCode" type="core:codedValue"/>
+        <xs:element name="informant" type="core:informant"/>
+        <xs:element name="text" type="xs:string"/>
       </xs:sequence>
-      <xs:attribute name="contentType" type="xs:anyURI" fixed="http://projecthdata.org/hdata/schemas/2009/06/result">
-        <xs:annotation>
-          <xs:appinfo>
-            <jxb:property name="CONTENT_TYPE" fixedAttributeAsConstantProperty="true"/>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:attribute>
     </xs:complexType>
   </xs:element>
-
-  <xs:element name="value" abstract="false" type="xs:anyType"/>
-
-  <xs:complexType name="unitValue">
-    <xs:attribute name="unit" use="required"/>
-    <xs:attribute name="value" use="required"/>
-  </xs:complexType>
-
-  <xs:complexType name="blood_presure">
-    <xs:attribute name="diastolic"/>
-    <xs:attribute name="systolic"/>
-  </xs:complexType>
 
 </xs:schema>

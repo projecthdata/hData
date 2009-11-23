@@ -20,6 +20,27 @@
     <xs:attribute name="low" use="required" type="xs:dateTime"/>
   </xs:complexType>
 
+  <xs:complexType name="statusCode">
+    <xs:annotation>
+      <xs:documentation>
+        HL7 ActStatusNormal status code options.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="code">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="aborted"/>
+          <xs:enumeration value="completed"/>
+          <xs:enumeration value="active"/>
+          <xs:enumeration value="cancelled"/>
+          <xs:enumeration value="held"/>
+          <xs:enumeration value="new"/>
+          <xs:enumeration value="suspended"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
   <xs:complexType name="codedValue">
     <xs:sequence>
       <xs:element form="unqualified" minOccurs="0" name="value" type="xs:string"/>
@@ -52,7 +73,29 @@
 
   <xs:complexType name="telecom">
     <xs:attribute name="value" use="required"/>
-    <xs:attribute name="use" use="required"/>
+    <xs:attribute name="type" use="required">
+      <xs:simpleType>
+         <xs:restriction base="xs:string">
+           <xs:enumeration value="phone-landline"/>
+           <xs:enumeration value="phone-cell"/>
+           <xs:enumeration value="phone-fax"/>
+           <xs:enumeration value="phone-pager"/>
+           <xs:enumeration value="phone-sms"/>
+           <xs:enumeration value="email"/>
+           <xs:enumeration value="im"/>
+           <xs:enumeration value="other"/>
+         </xs:restriction> 
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="use" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="home"/>
+          <xs:enumeration value="work"/>
+          <xs:enumeration value="other"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
     <xs:attribute default="false" name="prefered" type="xs:boolean"/>
   </xs:complexType>
 

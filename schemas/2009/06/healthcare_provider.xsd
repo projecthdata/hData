@@ -45,10 +45,125 @@
       <xs:sequence>
         <xs:element name="patientId" type="xs:string"/>
         <xs:element name="effectiveDate" type="core:dateRange"/>
-        <xs:element name="role" type="core:codedValue"/> 
-        <xs:element name="type" type="core:codedValue"/>
+        <xs:element name="role" type="provider:providerRole"/> 
+        <xs:element name="providertype" type="provider:providerType"/>
         <xs:element name="name" type="core:actor"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  
+  <xs:complexType name="providerType" abstract="true">
+    <xs:annotation>
+      <xs:documentation>
+        Classifies providers according to the type of license or accreditation
+        they hold. It is coded using a subset of the Healthcare Provider Taxonomy.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:restriction base="core:codedValue">
+        <xs:attribute name="code" use="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="100000000X" />
+              <xs:enumeration value="110000000X" />
+              <xs:enumeration value="120000000X" />
+              <xs:enumeration value="130000000X" />
+              <xs:enumeration value="140000000X" />
+              <xs:enumeration value="150000000X" />
+              <xs:enumeration value="160000000X" />
+              <xs:enumeration value="180000000X" />
+              <xs:enumeration value="200000000X" />
+              <xs:enumeration value="210000000X" />
+              <xs:enumeration value="220000000X" />
+              <xs:enumeration value="230000000X" />
+              <xs:enumeration value="250000000X" />
+              <xs:enumeration value="260000000X" />
+              <xs:enumeration value="280000000X" />
+              <xs:enumeration value="290000000X" />
+              <xs:enumeration value="300000000X" />
+              <xs:enumeration value="310000000X" />
+              <xs:enumeration value="320000000X" />
+              <xs:enumeration value="330000000X" />
+              <xs:enumeration value="360000000X" />
+              <xs:enumeration value="370000000X" />
+              <xs:enumeration value="380000000X" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="displayName" use="optional">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="Behavioral Health and Social Service Providers" />
+              <xs:enumeration value="Chiropractic Providers" />
+              <xs:enumeration value="Dental Providers" />
+              <xs:enumeration value="Dietary and Nutritional Service Providers" />
+              <xs:enumeration value="Emergency Medical Service Providers" />
+              <xs:enumeration value="Eye and Vision Service Providers" />
+              <xs:enumeration value="Nursing Service Providers" />
+              <xs:enumeration value="Pharmacy Service Providers (Individuals)" />
+              <xs:enumeration value="Allopathic and Osteopathic Physicians" />
+              <xs:enumeration value="Podiatric Medicine and Surgery Providers" />
+              <xs:enumeration value="Respiratory, Rehabilitative and Restorative Service Providers" />
+              <xs:enumeration value="Speech, Language and Hearing Providers" />
+              <xs:enumeration value="Agencies" />
+              <xs:enumeration value="Ambulatory Health Care Facilities" />
+              <xs:enumeration value="Hospitals" />
+              <xs:enumeration value="Laboratories" />
+              <xs:enumeration value="Managed Care Organizations" />
+              <xs:enumeration value="Nursing and Custodial Care Facilities" />
+              <xs:enumeration value="Residential Treatment Facilities" />
+              <xs:enumeration value="Suppliers (including Pharmacies and Durable Medical Equipment)" />
+              <xs:enumeration value="Physician Assistants and Advanced Practice Nursing Providers" />
+              <xs:enumeration value="Nursing Service Related Providers" />
+              <xs:enumeration value="Respite Care Facility" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="codeSystemName" type="xs:string" fixed="ProviderCodes" />
+        <xs:attribute name="codeSystem" type="xs:string" fixed="2.16.840.1.113883.6.101" use="required"/>
+        
+      </xs:restriction>  
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:complexType name="providerRole" abstract="true">
+    <xs:annotation>
+      <xs:documentation>
+        Classifies providers according to the role they play in the healthcare of
+        the patient. It is coded using a limited subset of the HL7 Version 2 Provider
+        Role vocabulary.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:restriction base="core:codedValue">
+        <xs:sequence>
+          <xs:element form="unqualified" name="value" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="code" use="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="CP" />
+              <xs:enumeration value="PP" />
+              <xs:enumeration value="RP" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="displayName" use="optional">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="Consulting Provider" />
+              <xs:enumeration value="Primary Care Provider" />
+              <xs:enumeration value="Referring Provider" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="codeSystemName" type="xs:string" fixed="Provider Role" />
+        <xs:attribute name="codeSystem" type="xs:string" fixed="2.16.840.1.113883.12.443" use="required"/>
+        
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  
+  
 </xs:schema>
