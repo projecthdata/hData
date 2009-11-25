@@ -43,14 +43,14 @@
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="product" type="allergyt:product"/>
-        <xs:element name="type" type="allergyt:adverseEventType" minOccurs="0"/>
-        <xs:element name="effectiveDate" type="core:dateRange" minOccurs="0"/>
-        <xs:element name="reaction" type="allergyt:reaction"/>
-        <xs:element name="severity" type="allergyt:severity" minOccurs="0"/>
+        <xs:element name="product" type="allergyt:product" maxOccurs="1"/>
+        <xs:element name="type" type="allergyt:adverseEventType" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="effectiveDate" type="core:dateRange" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="reaction" type="allergyt:reaction" maxOccurs="1"/>
+        <xs:element name="severity" type="allergyt:severity" maxOccurs="1"/>
         <xs:element name="informant" type="core:informant" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="text" type="xs:string" minOccurs="0"/>
-        <xs:element name="entryRelationship" type="allergyt:allergyEntryRelationship" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="alertStatus" type="allergyt:alertStatus" maxOccurs="1"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
