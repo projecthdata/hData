@@ -62,7 +62,7 @@
     </xs:complexContent>
 </xs:complexType>
 
-<xs:complexType name="StatusObservation">
+<xs:complexType name="statusObservation">
     <xs:annotation>
         <xs:documentation>
             An advance directive status observation.
