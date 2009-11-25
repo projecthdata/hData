@@ -20,81 +20,76 @@
 
     <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
         schemaLocation="core_data_types.xsd"/>
-    
-    
+
+
     <xs:complexType name="adverseEventType">
         <xs:annotation>
-            <xs:documentation>
-                The type of the allergy/intolerance in question will come from the constrained set of SNOWMED CT codes provided below.
-                This table of information is the same constrained set from the HITSP C32 Allergy section
-                
-                
-                SNOMED CT Preferred Terms            SNOMED  CT Code                  Usage  
-                for Adverse Event Type 
-                
-                
-                propensity to adverse reactions          420134006           Used to record an adverse reaction. 
-                
-                propensity to adverse reactions to       418038007           Used to record an adverse reaction to an environmental agent. 
-                substance 
-                
-                propensity to adverse reactions to      419511003           Used to record an adverse reaction to a drug. 
-                drug 
-                
-                propensity to adverse reactions to       418471000           Used to record an adverse reaction to a food.
-                food 
-                
-                allergy to substance                     419199007            Used to record an allergy to an environmental agent. 
-                drug allergy                             416098002            Used to record an allergy to a drug. 
-                food allergy                             414285001            Used to record an allergy to a food. 
-                drug intolerance                         59037007             Used to record intolerance to a drug. 
-                food intolerance                         235719002            Used to record intolerance to a food. 
-                
-                
-            </xs:documentation>
+            <xs:documentation> The type of the allergy/intolerance in question will come from the
+                constrained set of SNOWMED CT codes provided below. This table of information is the
+                same constrained set from the HITSP C32 Allergy section SNOMED CT Preferred Terms
+                SNOMED CT Code Usage for Adverse Event Type propensity to adverse reactions
+                420134006 Used to record an adverse reaction. propensity to adverse reactions to
+                418038007 Used to record an adverse reaction to an environmental agent. substance
+                propensity to adverse reactions to 419511003 Used to record an adverse reaction to a
+                drug. drug propensity to adverse reactions to 418471000 Used to record an adverse
+                reaction to a food. food allergy to substance 419199007 Used to record an allergy to
+                an environmental agent. drug allergy 416098002 Used to record an allergy to a drug.
+                food allergy 414285001 Used to record an allergy to a food. drug intolerance
+                59037007 Used to record intolerance to a drug. food intolerance 235719002 Used to
+                record intolerance to a food. </xs:documentation>
         </xs:annotation>
-            <xs:complexContent>
-                <xs:restriction base="core:codedValue"> 
-                    <xs:attribute name="code" use="required">
-                        <xs:simpleType>
-                            <xs:restriction base="xs:token">
-                                <xs:enumeration value="420134006"/> <!-- propensity to adverse reactions -->
-                                <xs:enumeration value="418038007"/> <!-- propensity to adverse reactions to substance-->
-                                <xs:enumeration value="419511003"/> <!-- propensity to adverse reactions to drug -->
-                                <xs:enumeration value="418471000"/> <!-- propensity to adverse reactions to food -->
-                                <xs:enumeration value="419199007"/> <!-- allergy to substance -->
-                                <xs:enumeration value="416098002"/> <!-- drug allergy -->
-                                <xs:enumeration value="414285001"/> <!-- food allergy -->
-                                <xs:enumeration value="59037007"/> <!-- drug intolerance -->
-                                <xs:enumeration value="235719002"/> <!-- food intolerance -->
-                            </xs:restriction>
-                        </xs:simpleType>
-                    </xs:attribute>
-                    <xs:attribute name="codeSystem" type="xs:string" use="required" fixed="2.16.840.1.113883.6.96"/>
-                    <xs:attribute name="codeSystemName" type="xs:string" fixed="SNOMED CT"/>
-                    <xs:attribute name="displayName" use="optional">
-                        <xs:simpleType>
-                            <xs:restriction base="xs:string">
-                                <xs:enumeration value="propensity to adverse reactions"/>
-                                <xs:enumeration value="propensity to adverse reactions to substance"/>
-                                <xs:enumeration value="propensity to adverse reactions to drug"/>
-                                <xs:enumeration value="propensity to adverse reactions to food"/>
-                                <xs:enumeration value="allergy to substance"/>
-                                <xs:enumeration value="drug allergy"/>
-                                <xs:enumeration value="food allergy"/>
-                                <xs:enumeration value="drug intolerance"/>
-                                <xs:enumeration value="food intolerance"/>
-                            </xs:restriction>
-                        </xs:simpleType>
-                    </xs:attribute>
-                    
-                </xs:restriction>
-                
-            </xs:complexContent>
-            
-        
+        <xs:complexContent>
+            <xs:restriction base="core:codedValue">
+                <xs:attribute name="code" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:token">
+                            <xs:enumeration value="420134006"/>
+                            <!-- propensity to adverse reactions -->
+                            <xs:enumeration value="418038007"/>
+                            <!-- propensity to adverse reactions to substance-->
+                            <xs:enumeration value="419511003"/>
+                            <!-- propensity to adverse reactions to drug -->
+                            <xs:enumeration value="418471000"/>
+                            <!-- propensity to adverse reactions to food -->
+                            <xs:enumeration value="419199007"/>
+                            <!-- allergy to substance -->
+                            <xs:enumeration value="416098002"/>
+                            <!-- drug allergy -->
+                            <xs:enumeration value="414285001"/>
+                            <!-- food allergy -->
+                            <xs:enumeration value="59037007"/>
+                            <!-- drug intolerance -->
+                            <xs:enumeration value="235719002"/>
+                            <!-- food intolerance -->
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="codeSystem" type="xs:string" use="required"
+                    fixed="2.16.840.1.113883.6.96"/>
+                <xs:attribute name="codeSystemName" type="xs:string" fixed="SNOMED CT"/>
+                <xs:attribute name="displayName" use="optional">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="propensity to adverse reactions"/>
+                            <xs:enumeration value="propensity to adverse reactions to substance"/>
+                            <xs:enumeration value="propensity to adverse reactions to drug"/>
+                            <xs:enumeration value="propensity to adverse reactions to food"/>
+                            <xs:enumeration value="allergy to substance"/>
+                            <xs:enumeration value="drug allergy"/>
+                            <xs:enumeration value="food allergy"/>
+                            <xs:enumeration value="drug intolerance"/>
+                            <xs:enumeration value="food intolerance"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+
+            </xs:restriction>
+
+        </xs:complexContent>
+
+
     </xs:complexType>
-    
+
     <xs:complexType name="product">
         <xs:sequence>
             <xs:element name="code" type="allergyt:allergyProductCode"/>
@@ -102,134 +97,133 @@
         </xs:sequence>
         <xs:attribute name="typeCode" type="xs:string" fixed="MMAT"/>
     </xs:complexType>
-    
+
     <xs:complexType name="allergyProductCode">
         <xs:annotation>
-            <xs:documentation>
-                Coded value for the product.
-                
-                Products causing the adverse event SHALL be coded to UNII for food and substance
-                allergies, RxNorm for medications, or NDF-RT for classes of medications (C32-[89]).
-            </xs:documentation>
+            <xs:documentation> Coded value for the product. Products causing the adverse event SHALL
+                be coded to UNII for food and substance allergies, RxNorm for medications, or NDF-RT
+                for classes of medications (C32-[89]). </xs:documentation>
         </xs:annotation>
         <xs:attribute name="code" type="xs:string"/>
-        <xs:attribute name="displayName" type="xs:string" />
+        <xs:attribute name="displayName" type="xs:string"/>
         <xs:attribute name="codeSystemName">
             <xs:simpleType>
                 <xs:restriction base="xs:string">
-                    <xs:enumeration value="UNII" />
-                    <xs:enumeration value="RxNorm" />
-                    <xs:enumeration value="NDF-RT" />
+                    <xs:enumeration value="UNII"/>
+                    <xs:enumeration value="RxNorm"/>
+                    <xs:enumeration value="NDF-RT"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="codeSystem">
             <xs:simpleType>
                 <xs:restriction base="xs:string">
-                    <xs:enumeration value="2.16.840.1.113883.4.9"/> <!-- UNII -->
-                    <xs:enumeration value="2.16.840.1.113883.6.88"/> <!-- RxNorm -->
-                    <xs:enumeration value="2.16.840.1.113883.4.209"/> <!-- NDF-RT -->
+                    <xs:enumeration value="2.16.840.1.113883.4.9"/>
+                    <!-- UNII -->
+                    <xs:enumeration value="2.16.840.1.113883.6.88"/>
+                    <!-- RxNorm -->
+                    <xs:enumeration value="2.16.840.1.113883.4.209"/>
+                    <!-- NDF-RT -->
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-    </xs:complexType> 
-    
+    </xs:complexType>
+
     <xs:complexType name="reaction">
         <xs:annotation>
-            <xs:documentation>
-                As with the HITSP C32 Document the reaction to the allergy/intolorance shall
-                be expressed  using the VA/KP Problem List Subset of SNOMED CT, and shall be terms that descend from 
-                the clinical finding (404684003) concept. The OID for this vocabulary is 2.16.840.1.113883.6.96. The problem list subset 
-                can be obtained from www.cancer.gov/cancertopics/terminologyresources/FDA. 
+            <xs:documentation> As with the HITSP C32 Document the reaction to the
+                allergy/intolorance shall be expressed using the VA/KP Problem List Subset of SNOMED
+                CT, and shall be terms that descend from the clinical finding (404684003) concept.
+                The OID for this vocabulary is 2.16.840.1.113883.6.96. The problem list subset can
+                be obtained from www.cancer.gov/cancertopics/terminologyresources/FDA.
             </xs:documentation>
         </xs:annotation>
-            <xs:complexContent>
-                <xs:restriction base="core:codedValue">
-                    <xs:attribute name="code" type="xs:token" use="required"/>
-                    <xs:attribute name="displayName" type="xs:string"/>
-                    <xs:attribute name="codeSystemName" type="xs:string" fixed="SNOMED CT"/>
-                    <xs:attribute name="codeSystem" type="xs:string" fixed="2.16.840.1.113883.6.96" use="required"/>
-                </xs:restriction>
-            </xs:complexContent>
+        <xs:complexContent>
+            <xs:restriction base="core:codedValue">
+                <xs:attribute name="code" type="xs:token" use="required"/>
+                <xs:attribute name="displayName" type="xs:string"/>
+                <xs:attribute name="codeSystemName" type="xs:string" fixed="SNOMED CT"/>
+                <xs:attribute name="codeSystem" type="xs:string" fixed="2.16.840.1.113883.6.96"
+                    use="required"/>
+            </xs:restriction>
+        </xs:complexContent>
     </xs:complexType>
-    
+
     <xs:complexType name="severity">
         <xs:annotation>
-            <xs:documentation>
-                The severity of a given allergy/intolorance shall be expressed from the constrained set of SNOWMED CT codes:
-                
-                mild                              255604002 
-                mild to moderate                  371923003 
-                moderate                          6736007 
-                moderate to severe                371924009 
-                severe                            24484000 
-                fatal                             399166001 
-                
+            <xs:documentation> The severity of a given allergy/intolorance shall be expressed from
+                the constrained set of SNOWMED CT codes: mild 255604002 mild to moderate 371923003
+                moderate 6736007 moderate to severe 371924009 severe 24484000 fatal 399166001
             </xs:documentation>
         </xs:annotation>
-            <xs:complexContent>
-                <xs:restriction base="core:codedValue"> 
-                    <xs:attribute name="code" use="required">
-                        <xs:simpleType>
-                            <xs:restriction base="xs:token">
-                                <xs:enumeration value="255604002"/> <!-- Mild -->
-                                <xs:enumeration value="371923003"/> <!-- mild to moderate -->
-                                <xs:enumeration value="6736007"/> <!-- Moderate -->
-                                <xs:enumeration value="371924009"/> <!-- moderate to severe -->
-                                <xs:enumeration value="24484000"/> <!-- Severe -->
-                                <xs:enumeration value="399166001"/> <!-- Fatal -->
-                            </xs:restriction>
-                        </xs:simpleType>
-                    </xs:attribute>
-                    <xs:attribute name="displayName">
-                        <xs:simpleType>
-                            <xs:restriction base="xs:string">
-                                <xs:enumeration value="Mild"/>
-                                <xs:enumeration value="mild to moderate"/>
-                                <xs:enumeration value="Moderate"/>
-                                <xs:enumeration value="moderate to severe"/>
-                                <xs:enumeration value="Severe"/>
-                                <xs:enumeration value="Fatal"/>
-                            </xs:restriction>
-                        </xs:simpleType>
-                    </xs:attribute>
-                    <xs:attribute name="codeSystemName" type="xs:string" fixed="SNOMED CT"/>
-                    <xs:attribute name="codeSystem" type="xs:string" use="required" fixed="2.16.840.1.113883.6.96"/>
-                </xs:restriction>
-            </xs:complexContent>
-            
+        <xs:complexContent>
+            <xs:restriction base="core:codedValue">
+                <xs:attribute name="code" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:token">
+                            <xs:enumeration value="255604002"/>
+                            <!-- Mild -->
+                            <xs:enumeration value="371923003"/>
+                            <!-- mild to moderate -->
+                            <xs:enumeration value="6736007"/>
+                            <!-- Moderate -->
+                            <xs:enumeration value="371924009"/>
+                            <!-- moderate to severe -->
+                            <xs:enumeration value="24484000"/>
+                            <!-- Severe -->
+                            <xs:enumeration value="399166001"/>
+                            <!-- Fatal -->
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="displayName">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="Mild"/>
+                            <xs:enumeration value="mild to moderate"/>
+                            <xs:enumeration value="Moderate"/>
+                            <xs:enumeration value="moderate to severe"/>
+                            <xs:enumeration value="Severe"/>
+                            <xs:enumeration value="Fatal"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="codeSystemName" type="xs:string" fixed="SNOMED CT"/>
+                <xs:attribute name="codeSystem" type="xs:string" use="required"
+                    fixed="2.16.840.1.113883.6.96"/>
+            </xs:restriction>
+        </xs:complexContent>
+
     </xs:complexType>
-    
-    <xs:complexType name="allergyEntryRelationship">
+
+    <xs:complexType name="alertStatus">
         <xs:annotation>
-            <xs:documentation>
-                May represent (1) a reaction or (2) alert status.
-                
-                (1) The reaction that may be caused by the product or agent. An
-                allergy entry may contain one or more reactions.
-                Includes both a free text description and a coded value.
-                
-                (2) An allergy entry may contain exactly one alert status. See
-                type AlertStatusCode for allowable codes.
-            </xs:documentation>
+            <xs:documentation> Status of alert/allergy </xs:documentation>
         </xs:annotation>
-        <xs:sequence>
-            <xs:element name="text" type="xs:string" minOccurs="0"/>
-            <xs:element name="value" type="core:codedValue"/>
-            <!-- Should be xsi:type="CD"; see types ReactionCode or AlertStatusCode for allowable values -->
-            <xs:element name="entryRelationship" type="allergyt:severity" minOccurs="0"/>
-            <!-- only for Reaction -->
-            <!-- not implemented - entryRelationship for Reaction intervention (CCD 3.8.2.4.1.3) -->
-        </xs:sequence>
-        <xs:attribute name="type">
-            <xs:simpleType>
-                <xs:restriction base="xs:string">
-                    <xs:enumeration value="2.16.840.1.113883.10.20.1.54"/> <!-- Reaction -->
-                    <xs:enumeration value="2.16.840.1.113883.10.20.1.39"/> <!-- Alert Status -->
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        
+        <xs:complexContent>
+            <xs:restriction base="core:codedValue">
+                <xs:attribute name="code" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:token">
+                            <xs:enumeration value="55561003"/> <!-- Active -->
+                            <xs:enumeration value="392521001"/> <!-- Prior History -->
+                            <xs:enumeration value="73425007"/> <!-- No Longer Active -->
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="displayName">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="Active"/>
+                            <xs:enumeration value="Prior History"/>
+                            <xs:enumeration value="No Longer Active"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="codeSystemName" type="xs:string" fixed="SNOMED CT"/>
+                <xs:attribute name="codeSystem" type="xs:string" use="required" fixed="2.16.840.1.113883.6.96"/>
+            </xs:restriction>
+        </xs:complexContent>
     </xs:complexType>
 
 </xs:schema>
