@@ -46,7 +46,7 @@
         <xs:element name="code" type="adt:advanceDirectiveType"/>
         <xs:element name="effectiveTime" type="core:dateRange"/>
         <xs:element name="informant" type="core:informant" minOccurs="1" maxOccurs="unbounded"/>
-        <xs:element name="entryRelationship" type="adt:StatusObservation"/>
+        <xs:element name="status" type="adt:statusObservation"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
