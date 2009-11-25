@@ -15,20 +15,11 @@
   targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/procedure"
   xmlns:procedure="http://projecthdata.org/hdata/schemas/2009/06/procedure"
   xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
-  xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
-  xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
-  jxb:extensionBindingPrefixes="xjc"
-  jxb:version="2.1">
+  >
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
     schemaLocation="core_data_types.xsd"/>
   <xs:element name="procedure">
     <xs:annotation>
-      <xs:appinfo>
-        <jxb:globalBindings>
-          <jxb:serializable/>
-          <xjc:superClass name="org.mitre.hdata.hrf.SectionDocument"/>
-        </jxb:globalBindings>
-      </xs:appinfo>
       <xs:documentation>
         
         dateRange: defines the date range of the procedure
@@ -48,21 +39,63 @@
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="type" type="core:codedValue"/>
-        <xs:element ref="core:dateRange" minOccurs="0"/>
-        <xs:element name="status" type="core:codedValue" minOccurs="0"/>
-        <xs:element name="product" type="core:codedValue" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element name="substance" type="core:codedValue" minOccurs="0"/>
+        <xs:element name="type" type="procedure:procedureCode"/>
+        <xs:element name="effectiveTime" type="core:dateRange"/>
+        <xs:element name="status">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="cancelled"/>
+              <xs:enumeration value="held"/>
+              <xs:enumeration value="active"/>
+              <xs:enumeration value="aborted"/>
+              <xs:enumeration value="completed"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+        <xs:element name="methodCode" type="core:codedValue"/>
+        <xs:element name="targetSiteCode" type="core:codedValue"/>
+        <xs:element name="informant" type="core:informant"/>
         <xs:element name="performer" type="core:actor" minOccurs="0"/>
-        <xs:group ref="core:abstractSection"/>
+        <xs:element name="text" type="xs:string"/>
       </xs:sequence>
-      <xs:attribute name="contentType" type="xs:anyURI" fixed="http://projecthdata.org/hdata/schemas/2009/06/procedure">
-        <xs:annotation>
-          <xs:appinfo>
-            <jxb:property name="CONTENT_TYPE" fixedAttributeAsConstantProperty="true"/>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:attribute>
     </xs:complexType>
   </xs:element>
+  
+  <xs:complexType name="procedureCode">
+    <xs:annotation>
+      <xs:documentation>
+        The CCD allows 5 different coding systems for encoding a procedure.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:restriction base="core:codedValue">
+        <xs:attribute name="code" type="xs:string" use="required"/>
+        <xs:attribute name="displayName" type="xs:string" />
+        <xs:attribute name="codeSystemName">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="LOINC" />
+              <xs:enumeration value="SNOMED" />
+              <xs:enumeration value="CPT-4" />
+              <xs:enumeration value="ICD9 Procedures" />
+              <xs:enumeration value="ICD10 Procedure Coding System" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="codeSystem" use="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="2.16.840.1.113883.6.1"/> <!-- LOINC -->
+              <xs:enumeration value="2.16.840.1.113883.6.96"/> <!-- SNOMED -->
+              <xs:enumeration value="2.16.840.1.113883.6.12"/> <!-- CPT-4 -->
+              <xs:enumeration value="2.16.840.1.113883.6.104"/> <!-- ICD9 Procedures -->
+              <xs:enumeration value="2.16.840.1.113883.6.4"/> <!-- ICD10 Procedure Coding System -->
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+  
 </xs:schema>

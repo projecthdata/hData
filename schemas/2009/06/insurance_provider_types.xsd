@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Copyright 2009 The MITRE Corporation 
+    
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. 
+    You may obtain a copy of the License at 
+    
+    http://www.apache.org/licenses/LICENSE-2.0 
+    
+    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+    language governing permissions and limitations under the License. 
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    elementFormDefault="qualified" 
+    targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/insurance_provider_types" 
+    xmlns:it="http://projecthdata.org/hdata/schemas/2009/06/insurance_provider_types" 
+    xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
+    
+    <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core" schemaLocation="core_data_types.xsd"/>
+ 
+    <xs:complexType name="healthInsuranceTypeCode" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                The type of health plan covering the individual(HMO, PPO, POS, Medicare Part A/B, etc). The
+                X12N 270/271 Implementation Guide contains the values for this value set. This document is
+                not freely available.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:restriction base="core:codedValue">
+                <xs:attribute name="code" type="xs:string" use="required"/> <!-- Use code PP for self pay or pay by guarantor -->
+                <xs:attribute name="displayName" type="xs:string"/>
+                <xs:attribute name="codeSystemName" type="xs:string" fixed="X12N-1336" />
+                <xs:attribute name="codeSystem" type="xs:string" fixed="2.16.840.1.113883.6.255.1336" use="required"/>
+                
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="payer" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                Payer Information OR Financial Responsibility Party Information including
+                the Health Plan Insurance Information Source Id, Address, Phone, Email, and Name
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="time" type="core:dateRange" minOccurs="0"/> <!-- Effective Date of Financial Responsibility-->
+            <xs:element name="assignedEntity">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="id" type="core:instanceIdentifier" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    The information source identifier corresponds to the RxBIN and RxPCN
+                                    fields found on pharmacy benefit cards. When a national payer identifier
+                                    is standardized, it would also go in this field.
+                                    The OID for RxBIN is 2.16.840.1.113883.3.88.3.14
+                                    The OID for an RxPCN is 2.16.840.1.113883.3.88.3.1 plus the numeric identifier used in the RxBIN.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="code" type="it:financialResponsibilityPartyType"/> <!-- Or Guarantor Information -->
+                        <xs:element name="addr" type="core:address" minOccurs="0"/>
+                        <xs:element name="telecom" type="core:telecom" minOccurs="0" maxOccurs="unbounded"/>
+                        <xs:element name="assignedPerson" minOccurs="0">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="name" type="core:name"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="representedOrganization" type="core:organization" minOccurs="0"/>
+                    </xs:sequence>
+                    <xs:attribute name="classCode" type="xs:string" fixed="ASSIGNED"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="typeCode" type="xs:string" fixed="PRF"/>
+    </xs:complexType>
+    
+    <xs:complexType name="financialResponsibilityPartyType" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                This data element identifies the type of the financially responsible party. The code attribute
+                contains a value from the HL7 RoleClassRelationshipFormal vocabulary. When the code of the
+                encompassing act is PP, the code attribute value is GUAR or PAT to represent a guarantor or
+                self-paying patient. The code attribute is PAYOR when the code of the encompassing act is other than PP.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:restriction base="core:codedValue">
+                <xs:attribute name="code" type="xs:string" use="required"/>
+                <xs:attribute name="displayName" type="xs:string"/>
+                <xs:attribute name="codeSystemName" type="xs:string" fixed="RoleClass" />
+                <xs:attribute name="codeSystem" type="xs:string" fixed="2.16.840.1.113883.5.110"  use="required"/>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="memberOrSubscriberInformation" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                The data elements described below identify the member(patient) or the subscriber to the health
+                plan for eligibility and/or claims processing. The health plan may not have the member or
+                subscriber's name, address or data of birth recorded in the same way as the provider. Using the
+                member or subscriber information as recorded by the health plan will improve the provider's
+                ability to determine eligibility for benefits and reduce rejections of claims.
+                Only record information in participantRole(HLD) if the subscriber is not the patient,
+                otherwise this information is recorded in Member Information
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="time" type="core:dateRange" minOccurs="0"/> <!-- Date Coverage begins-Date Coverage Ends -->
+            <xs:element name="participantRole">
+                <xs:complexType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Records Patient OR Subscriber Info including name, address, phone, email
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:sequence>
+                        <xs:element name="id" type="core:instanceIdentifier"/> <!-- Member or Subscriber Id -->
+                        <xs:element name="code" type="it:patientRelationshipToSubscriber" minOccurs="0"/> <!-- required only when recording patient information, not subscriber information-->
+                        <xs:element name="addr" type="core:address" minOccurs="0"/>
+                        <xs:element name="telecom" type="core:telecom" minOccurs="0" maxOccurs="unbounded"/>
+                        <xs:element name="MemberOfHealthPlan">
+                            <xs:complexType>
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        The playing entity includes the name and date of birth of the actual member or health plan contract
+                                        holder(the true subscriber) as entered into the eligibility system of the health plan. This is not the
+                                        name of a related spouse, child, or dependent.
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:sequence>
+                                    <xs:element name="name" type="core:name" minOccurs="0"/>
+                                    <xs:element name="birthTime" type="xs:date"/> <!-- subscriber date of birth, recorded if different from registration summary -->
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="classCode">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="PAT"/> <!-- Patient Information Code -->
+                                <xs:enumeration value="IND"/> <!-- Subscriber Information Code -->
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="typeCode">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="COV"/> <!-- Member Information Code -->
+                    <xs:enumeration value="HLD"/> <!-- Subscriber Information Code -->
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+    
+    <xs:complexType name="patientRelationshipToSubscriber" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                Specifies only if the patient is the subscriber or dependent within the context
+                of the specified health plan.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:restriction base="core:codedValue">
+                <xs:attribute name="code" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="STUD"/>
+                            <xs:enumeration value="FSTUD"/>
+                            <xs:enumeration value="PSTUD"/>
+                            <xs:enumeration value="FAMDEP"/>
+                            <xs:enumeration value="HANDIC"/>
+                            <xs:enumeration value="INJ"/>
+                            <xs:enumeration value="SELF"/>
+                            <xs:enumeration value="SPON"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="displayName">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="student"/>
+                            <xs:enumeration value="full-time student"/>
+                            <xs:enumeration value="part-time student"/>
+                            <xs:enumeration value="family dependent"/>
+                            <xs:enumeration value="handicapped dependent"/>
+                            <xs:enumeration value="injured plaintiff"/>
+                            <xs:enumeration value="self"/>
+                            <xs:enumeration value="sponsored dependent"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="codeSystemName" type="xs:string" fixed="RoleCode" />
+                <xs:attribute name="codeSystem" type="xs:string" fixed="2.16.841.1.113883.5.111" use="required"/>
+                
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="healthPlan" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                A container for an act containing the health plan name
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="AuthorizationActivity"> <!-- act identifying the plan -->
+                <xs:complexType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            An authorization activity represents authorizations currently active for the patient for the
+                            particular payer. Authorizations are represented using an act subordinate to the policy or program
+                            that provided it. The policy or program is referred to by the authorization.
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:sequence>
+                        <xs:element name="id" type="core:instanceIdentifier"/> <!-- plan or group code -->
+                        <xs:element name="text" type="xs:string"/> <!-- record name of health plan here -->
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="typeCode" type="xs:string" fixed="REFR"/>
+    </xs:complexType>
+    
+</xs:schema>

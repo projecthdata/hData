@@ -1,124 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-  Copyright 2009 The MITRE Corporation 
-  
-  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. 
-  You may obtain a copy of the License at 
-  
-  http://www.apache.org/licenses/LICENSE-2.0 
-  
-  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
-  language governing permissions and limitations under the License. 
+<!--
+Copyright 2009 The MITRE Corporation
+Approved for Public Release: 09-3060. Distribution Unlimited.
+See L32_ClinicalDocument.xsd for license details
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-  elementFormDefault="qualified"
-  targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/medication"
-  xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
-  xmlns:medication="http://projecthdata.org/hdata/schemas/2009/06/medication"
-  xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
-  xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
-  jxb:extensionBindingPrefixes="xjc"
-  jxb:version="2.1">
-  
-  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
-    schemaLocation="core_data_types.xsd"/>
-  <xs:element name="medication">
-    <xs:annotation>
-      <xs:appinfo>
-        <jxb:globalBindings>
-          <jxb:serializable/>
-          <xjc:superClass name="org.mitre.hdata.hrf.SectionDocument"/>
-        </jxb:globalBindings>
-      </xs:appinfo>
-      </xs:annotation>
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="medication:product"/>
-        <xs:element ref="medication:type" minOccurs="0"/>
-        <xs:element ref="medication:status" minOccurs="0"/>
-        <xs:element ref="medication:orderInformation" minOccurs="0"/>
-        <xs:element ref="medication:prescription" minOccurs="0"/>
-        <xs:group ref="core:abstractSection"/>
-      </xs:sequence>
-      <xs:attribute name="contentType" type="xs:anyURI" fixed="http://projecthdata.org/hdata/schemas/2009/06/medication">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/medication"
+    xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
+    xmlns:meds="http://projecthdata.org/hdata/schemas/2009/06/medication"
+    xmlns:medst="http://projecthdata.org/hdata/schemas/2009/06/medication_types">
+    
+    <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core" schemaLocation="core_data_types.xsd"/>
+    <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/medication_types" schemaLocation="medication_types.xsd"/>
+    
+    <xs:element name="medications">
+        <xs:complexType>
         <xs:annotation>
-          <xs:appinfo>
-            <jxb:property name="CONTENT_TYPE" fixedAttributeAsConstantProperty="true"/>
-          </xs:appinfo>
+            <xs:documentation>
+                Substance administration includes information about what has been administered
+                and what has been dispensed.
+                A pharmacy system usually reports what was actually filled (supply event),
+                along with intended use (substance administration intent). A physician often
+                reports intended use (substance administration and supply intent). A patient or
+                family member will usually report actual use (substance administration event).
+            </xs:documentation>
         </xs:annotation>
-      </xs:attribute>
+        <xs:sequence>
+            <xs:element name="code" type="core:codedValue" minOccurs="0"/>
+            <xs:element name="text" type="xs:string" minOccurs="0"/>
+            <xs:element name="statusCode" type="core:statusCode" minOccurs="0"/>
+            <xs:element name="effectiveTime" type="xs:dateTime" minOccurs="1" maxOccurs="2">
+                <xs:annotation>
+                    <xs:documentation>
+                        Used to indicate actual or intended start and stop date of a medication,
+                        and frequency of administration.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="routeCode" type="medst:routeOrProductForm" minOccurs="0"/>
+            <xs:element name="approachSiteCode" type="core:codedValue" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="doseQuantity" type="medst:dose" minOccurs="0"/>
+            <xs:element name="maxDoseQuantity" type="medst:doseRestriction" minOccurs="0"/>
+            <xs:element name="administrationUnitCode" type="medst:routeOrProductForm" minOccurs="0"/>
+            <xs:element name="consumable" type="medst:medicationInformation"/>
+            <xs:element name="performer" type="core:actor" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="informant" type="core:informant" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element name="participant" type="medst:vehicle" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="entryRelationship" type="medst:medicationInformationEntry" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="precondition" type="medst:doseIndicator" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="moodCode">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="INT"/> <!-- intent, -what a physician intends for a patient to be taking -->
+                    <xs:enumeration value="EVN"/> <!-- event, actual use -->
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:complexType>
-  </xs:element>
-  <xs:element name="type">
-    <xs:annotation>
-      <xs:documentation>
-         The type of medication that it is: either prescription or over the counter
-         This shall be represented using SNOWMED CT coded terms constrained to 
-         either:
-         
-         SNOMED CT Preferred Terms for             SNOMED CT Code
-         Type of Medication Vocabulary 
-       
-         Over the counter products                  329505003 
-        
-         Prescription Drug                          73639000 
-         
-       </xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:simpleContent>
-        <xs:restriction base="core:codedValue"> </xs:restriction>
-      </xs:simpleContent>
-
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="status">
-    <xs:annotation>
-      <xs:documentation> Status: 
-           Shall be a coded value constrained to the set of HL7 MedicationStatusCodes
-           
-        </xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:simpleContent>
-        <xs:restriction base="core:codedValue"> </xs:restriction>
-      </xs:simpleContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="orderInformation">
-    <xs:complexType>
-      <xs:attribute name="orderNumber" use="optional"/>
-      <xs:attribute name="experiationDate" use="optional" type="xs:date"/>
-      <xs:attribute name="quantity" use="optional" type="xs:int"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="prescription">
-    <xs:complexType>
-      <xs:attribute name="prescriptionNumber" use="optional"/>
-      <xs:attribute name="quantity" use="optional" type="xs:int"/>
-      <xs:attribute name="fillNumber" use="optional"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="product">
-    <xs:annotation>
-      <xs:documentation> 
-        name: the free text name of the manufactured product 
-        code: the coded value of the manufactured product 
-        
-        optional elements: 
-         lotNumber: the lot number which this drug belongs to 
-         manufacturer: the manufacturer of the  product in question
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="name" type="xs:string"/>
-        <xs:element name="code" type="core:codedValue" minOccurs="0"/>
-        <xs:element name="lotNumber" type="xs:string" minOccurs="0"/>
-        <xs:element name="brandName" type="xs:string" minOccurs="0"/>
-        <xs:element name="manufacturer" type="core:organization.class" minOccurs="0"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+    </xs:element> 
+    
 </xs:schema>

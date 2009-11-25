@@ -15,19 +15,12 @@
   targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/immunization"
   xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
   xmlns:i="http://projecthdata.org/hdata/schemas/2009/06/immunization"
-  xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
-  xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
-  jxb:extensionBindingPrefixes="xjc"
-  jxb:version="2.1">
-  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
-    schemaLocation="core_data_types.xsd"/>
+  xmlns:medst="http://projecthdata.org/hdata/schemas/2009/06/medication_types">
+  
+  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core" schemaLocation="core_data_types.xsd"/>
+  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/medication_types" schemaLocation="medication_types.xsd"/>
+  
   <xs:annotation>
-    <xs:appinfo>
-      <jxb:globalBindings>
-        <jxb:serializable/>
-        <xjc:superClass name="org.mitre.hdata.hrf.SectionDocument"/>
-      </jxb:globalBindings>
-    </xs:appinfo>
     <xs:documentation>
       This section is used to define a patients immunizations.
       
@@ -40,64 +33,33 @@
       The performer element is used to define the person/organization that performed the immunization.
       
       The product element describes the substance used for the immunization.
-      
-      
     </xs:documentation>
   </xs:annotation>
+  
   <xs:element name="immunization">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="i:product"/>
-        <xs:element ref="core:date" minOccurs="0"/>
-        <xs:element name="refusal" minOccurs="0" type="xs:string"/>
-        <xs:element name="seriesNumber" minOccurs="0" type="xs:string"/>
+        <xs:element name="statusCode" type="core:statusCode" minOccurs="0"/>
+        <xs:element name="effectiveTime" type="xs:dateTime" minOccurs="0"/><!-- Administered date -->
+        <xs:element name="approachSiteCode" type="core:codedValue" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="consumable" type="medst:medicationInformation"/>
         <xs:element name="performer" type="core:actor" minOccurs="0"/>
-        <xs:group ref="core:abstractSection"/>
-      </xs:sequence>
-      <xs:attribute name="contentType" type="xs:anyURI" fixed="http://projecthdata.org/hdata/schemas/2009/06/immunization">
-        <xs:annotation>
-          <xs:appinfo>
-            <jxb:property name="CONTENT_TYPE" fixedAttributeAsConstantProperty="true"/>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:attribute>
-    </xs:complexType>
-  </xs:element>
-
-  <xs:element name="product">
-    <xs:annotation>
-      <xs:documentation>
-        
-        This element describes the substance used to perform an immunization.
-        
-        name: the optional name of the substance used for the immunization as the value of the element. This should be the free text brand or generic name of the substance
-              This is also coded value element but not constrained  to any particular coding system so implementers can supply a coded value for the name if available.
-              
-        material: the name of the actual material used in the immunization. This differs from the name of the product as this would be the actual material as opposed to 
-                  the brand name of a product. This is also a codedValue element not constrained to a coding system. In addition to the codedValue attributes this element 
-                  defines an additional optional attribute, lotNumber, used to supply the lot number of a material if known.
-                  
-                  
-        manufacturer: The optional organization that manufactured the product.       
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="name" type="core:codedValue"/>
-
-        <xs:element name="material" minOccurs="0">
-          <xs:complexType>
-            <xs:simpleContent>
-              <xs:extension base="core:codedValue"> </xs:extension>
-            </xs:simpleContent>
-          </xs:complexType>
+        <xs:element name="informant" type="core:informant" minOccurs="1" maxOccurs="unbounded"/>
+        <xs:element name="entryRelationship" type="medst:medicationInformationEntry" minOccurs="0" maxOccurs="unbounded">
+          <xs:annotation>
+            <xs:documentation>
+              Use typeCode SUBJ for a Medication Series Number and typeCode CAUS for a Reaction.
+              Indicate which in a series of administrations a particular administration represents
+              (e.g. “hepatitis B vaccine number 2”) with SUBJ. CAUS for reaction is used to represent
+              any noted intended or unintended effects of the product. For example: full body rash,
+              nausea, rash resolved.
+            </xs:documentation>
+          </xs:annotation>
         </xs:element>
-        <xs:element name="manufacturer" minOccurs="0" type="core:organization.class"/>
+        <xs:element name="text" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-
-
 
 
 </xs:schema>

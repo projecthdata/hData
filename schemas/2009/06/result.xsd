@@ -17,8 +17,10 @@
   xmlns:results="http://projecthdata.org/hdata/schemas/2009/06/result" 
   xmlns:resultst="http://projecthdata.org/hdata/schemas/2009/06/result_types" 
   xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
+  
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core" schemaLocation="core_data_types.xsd"/>
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/result_types" schemaLocation="result_types.xsd"/>
+  
   <xs:element name="result">
     <xs:annotation>
       <xs:documentation>
@@ -33,8 +35,6 @@
         interpretation: codedValue interpretation of the results
         
         referenceRange:  
-        
-        
       </xs:documentation>
     </xs:annotation>
     <xs:complexType>

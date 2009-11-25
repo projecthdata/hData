@@ -20,6 +20,20 @@
     <xs:attribute name="low" use="required" type="xs:dateTime"/>
   </xs:complexType>
 
+  <xs:complexType name="instanceIdentifier">
+    <xs:annotation>
+      <xs:documentation>
+        An identifier that uniquely identifies a thing or object.
+        Examples are object identifier for HL7 RIM objects,
+        medical record number, order id, service catalog item id,
+        Vehicle Identification Number (VIN), etc. Instance
+        identifiers are defined based on ISO object identifiers.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="root" type="xs:string"/>
+    <xs:attribute name="extension" type="xs:string" use="optional"/>
+  </xs:complexType>
+
   <xs:complexType name="statusCode">
     <xs:annotation>
       <xs:documentation>

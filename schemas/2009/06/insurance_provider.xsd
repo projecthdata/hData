@@ -15,80 +15,30 @@
   elementFormDefault="qualified" 
   targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/insurance_provider" 
   xmlns:i="http://projecthdata.org/hdata/schemas/2009/06/insurance_provider" 
-  xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
-  xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
-  xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
-  jxb:extensionBindingPrefixes="xjc"
-  jxb:version="2.1">
+  xmlns:it="http://projecthdata.org/hdata/schemas/2009/06/insurance_provider_types" 
+  xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
+  
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core" schemaLocation="core_data_types.xsd"/>
+  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/insurance_provider_types" schemaLocation="insurance_provider_types.xsd"></xs:import>
   <xs:element name="insuranceProvider">
-    <xs:annotation>
-      <xs:appinfo>
-        <jxb:globalBindings>
-          <jxb:serializable/>
-          <xjc:superClass name="org.mitre.hdata.hrf.SectionDocument"/>
-        </jxb:globalBindings>
-      </xs:appinfo>
-    </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="groupNumber" type="xs:string"/>
-        <xs:element name="insuranceType" type="core:codedValue"/>      
-        <xs:element name="name" type="xs:string"/>
-        <xs:element ref="i:payer"/>
-        <xs:element ref="i:patient"/>
-        <xs:element ref="i:subscriber"/>
-        <xs:element ref="i:guarantor"/>
-        <xs:group ref="core:abstractSection"/>
+        <xs:element name="PolicyActivity" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="groupNumber" type="core:instanceIdentifier"/>
+              <xs:element name="healthInsuranceType" type="it:healthInsuranceTypeCode"/>
+              <xs:element name="performer" type="it:payer"/>
+              <xs:element name="participant" type="it:memberOrSubscriberInformation"/>
+              <xs:element name="entryRelationship" type="it:healthPlan" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="sequenceNumber" type="xs:integer"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="informant" type="core:informant"/>
+        <xs:element name="text" type="xs:string"/>
       </xs:sequence>
-      <xs:attribute name="contentType" type="xs:anyURI" fixed="http://projecthdata.org/hdata/schemas/2009/06/insurance_provider">
-        <xs:annotation>
-          <xs:appinfo>
-            <jxb:property name="CONTENT_TYPE" fixedAttributeAsConstantProperty="true"/>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:attribute>
     </xs:complexType>
   </xs:element>
 
-  
-  <xs:element name="payer">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="sourceId" type="xs:string"/>
-        <xs:element ref="core:actor"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  
-  <xs:element name="patient">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="core:person.class">
-          <xs:sequence>
-            <xs:element name="id" type="xs:string"/>
-            <xs:element name="relationship" type="core:codedValue"/>
-          </xs:sequence>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element> 
-      
-  <xs:element name="subscriber">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="id" type="xs:string"/>
-        <xs:element ref="core:actor"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  
-  <xs:element name="guarantor">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="core:actor"/>
-        <xs:element ref="core:date"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
 </xs:schema>
