@@ -16,12 +16,12 @@
   xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
   xmlns:conditions="http://projecthdata.org/hdata/schemas/2009/06/condition"
   xmlns:conditionst="http://projecthdata.org/hdata/schemas/2009/06/condition_types">
-  
+
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
     schemaLocation="core_data_types.xsd"/>
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/condition_types"
-  schemaLocation="condition_types.xsd"/>
-  
+    schemaLocation="condition_types.xsd"/>
+
   <xs:element name="condition">
     <xs:annotation>
       <xs:documentation>
@@ -37,8 +37,10 @@
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="conditionsType" type="conditionst:conditionType"/>
         <xs:element name="effectiveDate" type="core:dateRange"/>
+        <xs:element name="problemType" type="conditionst:problemType"/>
+        <xs:element name="name" type="xs:string" minOccurs="0"/>
+        <xs:element name="problemCode" type="conditionst:problemCode"/>
         <xs:element minOccurs="0" maxOccurs="unbounded" name="treatingProvider">
           <xs:complexType>
             <xs:annotation>
@@ -59,9 +61,8 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="text" type="xs:string" minOccurs="0"></xs:element>
-        <xs:element name="performer" type="core:actor" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element name="entryRelationship" type="conditionst:problemEntry" maxOccurs="unbounded"/>
+
+
       </xs:sequence>
     </xs:complexType>
   </xs:element>
