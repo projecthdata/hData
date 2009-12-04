@@ -19,7 +19,7 @@
     <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
         schemaLocation="core_data_types.xsd"/>
 
-    <xs:complexType name="conditionType">
+    <xs:complexType name="problemType">
         <xs:annotation>
             <xs:documentation>
                 This element is used to describe the type of problem/condition contained in this section. The possible values 
@@ -34,19 +34,6 @@
                 Condition 64572001 
                 Diagnosis 282291009 
                 Functional limitation 248536006 
-            </xs:documentation>
-        </xs:annotation>
-            <xs:complexContent>
-                <xs:restriction base="core:codedValue">
-                    
-                </xs:restriction>
-            </xs:complexContent>
-    </xs:complexType>
-
-    <xs:complexType name="problemType">
-        <xs:annotation>
-            <xs:documentation>
-                The Problem Type is coded using this subset of SNOMED CT.
             </xs:documentation>
         </xs:annotation>
         <xs:complexContent>
@@ -84,89 +71,20 @@
         </xs:complexContent>
     </xs:complexType> 
 
-    <xs:complexType name="problemEntry">
-        <!-- A Problem Observation 2.16.840.1.113883.10.20.1.28-->
-        <xs:sequence>
-            <xs:element name="code" type="conditiont:problemType"/>
-            <xs:element name="text" type="xs:string"/>
-            <xs:element name="effectiveTime" type="core:dateRange"/>
-            <xs:element name="value" type="core:codedValue" minOccurs="0">
-                <xs:annotation>
-                    <xs:documentation>
-                        This element can be used to indicate whether the patient is currently pregnant.
-                        The fixed values that should be used are defined in the data type called "Pregnancy."
-                        
-                        This element can also contain the Problem Code. It shall be coded using the
-                        VA/KP Problem List Subset of SNOMED CT. The problem list subset can be obtained
-                        from www.cancer.gov/cancertopics/terminologyresources/FDA. It is currently recorded
-                        in the value element using the CD data type. See the "ProblemCode" data type for
-                        information on the code system and ids to be used.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="informant" type="core:informant" minOccurs="1" maxOccurs="unbounded"/>
-            <xs:element name="entryRelationship" type="conditiont:healthStatusObservation" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
-    
-    <xs:complexType name="healthStatusObservation">
+    <xs:complexType name="problemCode">
         <xs:annotation>
             <xs:documentation>
-                The status observation is used to record a Problem Status Observation or
-                a Problem Healthstatus Observation.
+                See VA/KP Problem List Subset of SNOMED CT This describes the problem. Diagnosis/Problem List is broadly 
+                defined as a series of brief statements that catalog a patient’s medical, nursing, dental, social, preventative
+                and psychiatric events and issues that are relevant to that patient’s healthcare (e.g., signs, symptoms, and defined conditions)
             </xs:documentation>
         </xs:annotation>
-        <xs:sequence>
-            <xs:element name="code">
-                <xs:complexType>
-                    <xs:annotation>
-                        <xs:documentation>
-                            The values for a status observation or health status observation section specified by the CCD to
-                            indicate section conformance.
-                        </xs:documentation>
-                    </xs:annotation>
-                    <xs:complexContent>
-                        <xs:restriction base="core:codedValue">
-                            <xs:attribute name="code" use="required">
-                                <xs:simpleType>
-                                    <xs:restriction base="xs:string">
-                                        <xs:enumeration value="33999-4" /> <!-- Status code -->
-                                        <xs:enumeration value="11323-3" /> <!-- Health Status code -->
-                                    </xs:restriction>
-                                </xs:simpleType>
-                            </xs:attribute>
-                            <xs:attribute name="displayName">
-                                <xs:simpleType>
-                                    <xs:restriction base="xs:string">
-                                        <xs:enumeration value="Status"/>
-                                        <xs:enumeration value="Health status"/>
-                                    </xs:restriction>
-                                </xs:simpleType>
-                            </xs:attribute>
-                            <xs:attribute name="codeSystemName" type="xs:string" fixed="LOINC" />
-                            <xs:attribute name="codeSystem" type="xs:string" fixed="2.16.840.1.113883.6.1" use="required"/>
-                        </xs:restriction>
-                    </xs:complexContent>
-                    
-                </xs:complexType> 
-            </xs:element>
-            <xs:element name="value" type="core:codedValue" minOccurs="0" maxOccurs="unbounded"> <!--CCD pg 31 use datatype = CE -->
-                <xs:annotation>
-                    <xs:documentation> For a status observation, use
-                        codeSystemName=ProblemStatusCode and codeSystem=2.16.840.1.113883.1.11.20.13
-                        For a healthstatus observation, use codeSystemName=ProblemHealthStatusCode
-                        and codeSystem=2.16.840.1.113883.1.11.20.12 
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:sequence>
-        <xs:attribute name="type">
-            <xs:simpleType>
-                <xs:restriction base="xs:string">
-                    <xs:enumeration value="2.16.840.1.113883.10.20.1.50"/> <!-- A Problem Status Observation -->
-                    <xs:enumeration value="2.16.840.1.113883.10.20.1.51"/> <!-- A Problem HealthStatus Observation -->
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
+        <xs:complexContent>
+            <xs:restriction base="core:codedValue">
+                <xs:attribute name="codeSystemName" type="xs:string" fixed="SNOMED CT"/>
+                <xs:attribute name="codeSystem" type="xs:string" fixed="2.16.840.1.113883.6.96" use="required"/>                
+            </xs:restriction>
+        </xs:complexContent>
     </xs:complexType>
+ 
 </xs:schema>
