@@ -24,16 +24,16 @@
             <xs:documentation>
                 This element is used to describe the type of problem/condition contained in this section. The possible values 
                 for this have been constrained to the SNOMED CT Problem Type code set provided below for reference. 
-                
+
                 Problem Type Vocabulary 
-                SNOMED CT Terms for Problem Type SNOMED CT Code 
-                Finding 404684003 
-                Symptom 418799008 
-                Problem 55607006 
-                Complaint 409586006 
-                Condition 64572001 
-                Diagnosis 282291009 
-                Functional limitation 248536006 
+                SNOMED CT Terms for Problem Type SNOMED CT Code
+                Finding 404684003
+                Symptom 418799008
+                Problem 55607006
+                Complaint 409586006
+                Condition 64572001
+                Diagnosis 282291009
+                Functional limitation 248536006
             </xs:documentation>
         </xs:annotation>
         <xs:complexContent>
@@ -75,14 +75,14 @@
         <xs:annotation>
             <xs:documentation>
                 See VA/KP Problem List Subset of SNOMED CT This describes the problem. Diagnosis/Problem List is broadly 
-                defined as a series of brief statements that catalog a patient’s medical, nursing, dental, social, preventative
-                and psychiatric events and issues that are relevant to that patient’s healthcare (e.g., signs, symptoms, and defined conditions)
+                defined as a series of brief statements that catalog a patient's medical, nursing, dental, social, preventative
+                and psychiatric events and issues that are relevant to that patient's healthcare (e.g., signs, symptoms, and defined conditions)
             </xs:documentation>
         </xs:annotation>
         <xs:complexContent>
             <xs:restriction base="core:codedValue">
                 <xs:attribute name="codeSystemName" type="xs:string" fixed="SNOMED CT"/>
-                <xs:attribute name="codeSystem" type="xs:string" fixed="2.16.840.1.113883.6.96" use="required"/>                
+                <xs:attribute name="codeSystem" type="xs:string" fixed="2.16.840.1.113883.6.96" use="required"/>
             </xs:restriction>
         </xs:complexContent>
     </xs:complexType>
