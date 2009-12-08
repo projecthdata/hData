@@ -91,42 +91,39 @@
     </xs:complexType>
 
     <xs:complexType name="product">
-        <xs:sequence>
-            <xs:element name="code" type="allergyt:allergyProductCode"/>
-            <xs:element name="name" type="xs:string"/>
-        </xs:sequence>
-        <xs:attribute name="typeCode" type="xs:string" fixed="MMAT"/>
-    </xs:complexType>
-
-    <xs:complexType name="allergyProductCode">
         <xs:annotation>
             <xs:documentation> Coded value for the product. Products causing the adverse event SHALL
                 be coded to UNII for food and substance allergies, RxNorm for medications, or NDF-RT
                 for classes of medications (C32-[89]). </xs:documentation>
         </xs:annotation>
-        <xs:attribute name="code" type="xs:string"/>
-        <xs:attribute name="displayName" type="xs:string"/>
-        <xs:attribute name="codeSystemName">
-            <xs:simpleType>
-                <xs:restriction base="xs:string">
-                    <xs:enumeration value="UNII"/>
-                    <xs:enumeration value="RxNorm"/>
-                    <xs:enumeration value="NDF-RT"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="codeSystem">
-            <xs:simpleType>
-                <xs:restriction base="xs:string">
-                    <xs:enumeration value="2.16.840.1.113883.4.9"/>
-                    <!-- UNII -->
-                    <xs:enumeration value="2.16.840.1.113883.6.88"/>
-                    <!-- RxNorm -->
-                    <xs:enumeration value="2.16.840.1.113883.4.209"/>
-                    <!-- NDF-RT -->
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
+        <xs:complexContent>
+            <xs:restriction base="core:codedValue">
+                <xs:attribute name="code" type="xs:string" use="required"/>
+                <xs:attribute name="displayName" type="xs:string"/>
+                <xs:attribute name="codeSystemName">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="UNII"/>
+                            <xs:enumeration value="RxNorm"/>
+                            <xs:enumeration value="NDF-RT"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="codeSystem" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="2.16.840.1.113883.4.9"/>
+                            <!-- UNII -->
+                            <xs:enumeration value="2.16.840.1.113883.6.88"/>
+                            <!-- RxNorm -->
+                            <xs:enumeration value="2.16.840.1.113883.4.209"/>
+                            <!-- NDF-RT -->
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+
+            </xs:restriction>
+        </xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="reaction">
@@ -205,9 +202,12 @@
                 <xs:attribute name="code" use="required">
                     <xs:simpleType>
                         <xs:restriction base="xs:token">
-                            <xs:enumeration value="55561003"/> <!-- Active -->
-                            <xs:enumeration value="392521001"/> <!-- Prior History -->
-                            <xs:enumeration value="73425007"/> <!-- No Longer Active -->
+                            <xs:enumeration value="55561003"/>
+                            <!-- Active -->
+                            <xs:enumeration value="392521001"/>
+                            <!-- Prior History -->
+                            <xs:enumeration value="73425007"/>
+                            <!-- No Longer Active -->
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:attribute>
@@ -221,7 +221,8 @@
                     </xs:simpleType>
                 </xs:attribute>
                 <xs:attribute name="codeSystemName" type="xs:string" fixed="SNOMED CT"/>
-                <xs:attribute name="codeSystem" type="xs:string" use="required" fixed="2.16.840.1.113883.6.96"/>
+                <xs:attribute name="codeSystem" type="xs:string" use="required"
+                    fixed="2.16.840.1.113883.6.96"/>
             </xs:restriction>
         </xs:complexContent>
     </xs:complexType>
