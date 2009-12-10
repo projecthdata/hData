@@ -36,8 +36,16 @@
     </xs:complexType>
   </xs:element>
   <xs:element name="extension">
-    <xs:complexType mixed="true">
-      <xs:attributeGroup ref="core:extension"/>
+    <xs:complexType>
+      <xs:attribute name="requirement" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="mandatory"/>
+            <xs:enumeration value="optional"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="contentType" type="xs:anyURI"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="sections">
@@ -47,16 +55,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:attributeGroup name="extension">
-    <xs:attribute name="requirement" use="required">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="mandatory"/>
-          <xs:enumeration value="optional"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-  </xs:attributeGroup>
+ 
   <xs:element name="section">
     <xs:complexType>
       <xs:sequence>
