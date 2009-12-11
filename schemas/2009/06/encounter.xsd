@@ -26,7 +26,7 @@
         <xs:element name="type" type="encounter:encounterType" minOccurs="0"/>
         <xs:element name="freeTextType" type="xs:string"/>
         <xs:element name="effectiveDate" type="core:dateRange"/>
-        <xs:element name="provider" type="core:actor" minOccurs="0"/>
+        <xs:element name="provider" type="core:actor" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="informer" type="core:informant" minOccurs="0"/>
       </xs:sequence>
     </xs:complexType>
