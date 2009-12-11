@@ -15,7 +15,7 @@
     targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/medication_types"
     xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
     xmlns:medst="http://projecthdata.org/hdata/schemas/2009/06/medication_types">
-    
+
     <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
         schemaLocation="core_data_types.xsd"/>
 
@@ -26,101 +26,20 @@
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="manufacturedProduct">
+            <xs:element name="manufacturedMaterial">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="manufacturedMaterial">
-                            <xs:complexType>
-                                <xs:sequence>
-                                    <xs:element name="code" type="medst:codedProductName"/>
-                                    <xs:element name="name" type="xs:string" minOccurs="0"/>
-                                    <xs:element name="lotNumberText" type="xs:string" minOccurs="0"/>
-                                </xs:sequence>
-
-                            </xs:complexType>
-                        </xs:element>
-                        <xs:element name="manufacturedOrganization" type="core:organization" minOccurs="0"/>
+                        <xs:element name="codedProductName" type="medst:codedProductName"/>
+                        <xs:element name="freeTextBrandName" type="xs:string" minOccurs="0"/>
+                        <xs:element name="lotNumberText" type="xs:string" minOccurs="0"/>
                     </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-        </xs:sequence>
-    </xs:complexType>
-    
-    <xs:complexType name="medicationInformationEntry">
-        <xs:annotation>
-            <xs:documentation>
-                A medication entry relationship can contain an act, observation, or supply.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:choice>
-                <xs:element name="act" type="medst:fulfillmentInstructions"/> <!-- Used to record Medication Patient Instructions, also used for an Immunization Refusal Reason -->
-                <xs:element name="observation" type="medst:medicationObservation"/>
-                <xs:element name="supply" type="medst:orderInformation"/>
-            </xs:choice>
-        </xs:sequence>
-        <xs:attribute name="typeCode">
-            <xs:simpleType>
-                <xs:restriction base="xs:string">
-                    <xs:enumeration value="SUBJ"/> <!-- Used with an observation element to record the Type of Medication -->
-                    <xs:enumeration value="REFR"/> <!-- Used with an observation element to record the Status of Medication, or with a supply element to record Order Information -->
-                    <xs:enumeration value="RSON"/> <!-- Used with an observation element to record the Indication, also used with an act element for an Immunization Refusal Reason -->
-                    <xs:enumeration value="CAUS"/> <!-- Used with an observation element to record a Medication Reaction or Immunization Reaction-->
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:complexType>
-    
-    <xs:complexType name="fulfillmentInstructions">
-        <xs:annotation>
-            <xs:documentation>
-                Text containing instructions to the patient.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element name="code" type="core:codedValue">
-                <xs:annotation>
-                    <xs:documentation>
-                        For an Immunization, the reason for refusal SHALL be reported using
-                        HL7 ActNoImmunizationReason vocabulary. The OID for this vocabulary
-                        is 2.16.840.1.113883.11.19725
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="text" type="xs:string"/>
-        </xs:sequence>
 
-    </xs:complexType>
-    
-    <xs:complexType name="medicationObservation">
-        <xs:annotation>
-            <xs:documentation>
-                A medication observation.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element name="templateId">
-                <xs:complexType>
-                    <xs:attribute name="root">
-                        <xs:simpleType>
-                            <xs:restriction base="xs:string">
-                                <xs:enumeration value="2.16.840.1.113883.3.88.11.32.10"/> <!-- SUBJ Used to record the Type of Medication-->
-                                <xs:enumeration value="2.16.840.1.113883.10.20.1.47"/> <!-- REFR Used to record the Status of Medication-->
-                                <xs:enumeration value="2.16.840.1.113883.10.20.1.28"/> <!-- RSON Used to record the Indication-->
-                                <xs:enumeration value="2.16.840.1.113883.10.20.1.54"/> <!-- CAUS Used to record a Medication Reaction or Immunization Reaction-->
-                            </xs:restriction>
-                        </xs:simpleType>
-                    </xs:attribute>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="code" type="medst:medicationObservationCodes"/>
-            <xs:element name="text" type="xs:string" minOccurs="0"/>
-            <xs:element name="statusCode" type="core:statusCode" minOccurs="0"/>
-            <xs:element name="effectiveTime" type="xs:dateTime" minOccurs="0"/>
-            <xs:element name="value" type="xs:anyType" minOccurs="0"/> <!-- datatype CE for status, use INT for Medication Series Number in an Immunization observation-->
+            <xs:element name="drugManufacturer" type="core:organization" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
-    
+
     <xs:complexType name="orderInformation">
         <xs:annotation>
             <xs:documentation>
@@ -128,16 +47,12 @@
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="statusCode" type="medst:fillStatus" minOccurs="0"/>
-            <xs:element name="effectiveTime" type="xs:dateTime" minOccurs="0"/>
-            <xs:element name="repeatNumber" minOccurs="0">
-                <xs:complexType>
-                    <xs:attribute name="value" type="xs:integer" use="optional"/>
-                    <xs:attribute name="nullFlavor" type="xs:string" fixed="PINF" use="optional"/>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="quantity" type="medst:dose" minOccurs="0"/>
-            <xs:element name="performer" type="core:actor" minOccurs="0">
+            <xs:element name="orderNumber" type="core:instanceIdentifier" minOccurs="0"/>
+            <xs:element name="fills" type="xs:integer" minOccurs="0"/>
+            <xs:element name="quantityOrdered" type="medst:dose" minOccurs="0"/>
+            <xs:element name="orderExpirationTime" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="orderTime" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="orderingProvider" type="core:actor" minOccurs="0">
                 <xs:annotation>
                     <xs:documentation>
                         The provider, the name of the person or organization fulfilling the
@@ -145,59 +60,10 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="author" minOccurs="0">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="time" type="xs:dateTime"/>
-                        <xs:element name="assignedAuthor" type="core:actor"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
             <xs:element name="informant" type="core:informant" minOccurs="0"/>
-            <xs:element name="entryRelationship" minOccurs="0"> <!-- Used to record Medication Fill Number -->
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="sequenceNum"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
         </xs:sequence>
-        <xs:attribute name="classCode" type="xs:string" fixed="SPLY"/>
-        <xs:attribute name="moodCode">
-            <xs:simpleType>
-                <xs:restriction base="xs:string">
-                    <xs:enumeration value="INT"/> <!-- intent -->
-                    <xs:enumeration value="EVN"/> <!-- event -->
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:complexType>
-    
-    <xs:complexType name="fillStatus">
-        <xs:annotation>
-            <xs:documentation>
-                Medication fill status shall contain a code derived from a limited set
-                of HL7 ActStatusNormal values.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexContent>
-            <xs:restriction base="core:codedValue">
-                <xs:attribute name="code" use="required">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:enumeration value="completed"/>
-                            <xs:enumeration value="aborted"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:attribute>
-                <xs:attribute name="codeSystemName" type="xs:string" fixed="HL7 ActStatusNormal"/>
-                <xs:attribute name="codeSystem" type="xs:string" fixed="2.16.840.1.113883.11.15936" use="required"/>
-                
-            </xs:restriction>
-        </xs:complexContent>
     </xs:complexType>
 
-    
     <xs:complexType name="routeOrProductForm">
         <xs:annotation>
             <xs:documentation>
@@ -222,44 +88,66 @@
                 </xs:attribute>
                 <xs:attribute name="displayName" type="xs:string"/>
                 <xs:attribute name="codeSystemName" type="xs:string" fixed="NCI Thesaurus"/>
-                <xs:attribute name="codeSystem" type="xs:string" fixed="2.16.840.1.113883.3.26.1.1" use="required"/>
-                
+                <xs:attribute name="codeSystem" type="xs:string" fixed="2.16.840.1.113883.3.26.1.1"
+                    use="required"/>
+
             </xs:restriction>
         </xs:complexContent>
     </xs:complexType>
-    
-    <xs:complexType name="vehicle">
+
+    <xs:complexType name="medicationType">
         <xs:annotation>
             <xs:documentation>
-                The vehicle for administering medication. Non-active ingredient(s),
-                or substances not of therapeutic interest, in which the active ingredients are dispersed.
+                Indicates whether this is an over the counter or prescription medication
             </xs:documentation>
         </xs:annotation>
-        <xs:sequence>
-            <xs:element name="participantRole">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="playingEntity" minOccurs="0">
-                            <xs:complexType>
-                                <xs:sequence>
-                                    <xs:element name="code" minOccurs="0">
-                                        <xs:complexType>
-                                            <xs:attributeGroup ref="medst:medicationCodeAttributes"/>
-                                        </xs:complexType>
-                                    </xs:element>
-                                    <xs:element name="name" type="xs:string"/>
-                                </xs:sequence>
-                                
-                            </xs:complexType>
-                        </xs:element>
-                    </xs:sequence>
-                    
-                </xs:complexType>
-            </xs:element>
-        </xs:sequence>
-        
+        <xs:complexContent>
+            <xs:restriction base="core:codedValue">
+
+                <xs:attribute name="code" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:token">
+                            <xs:enumeration value="329505003"/>
+                            <!-- Over the counter products -->
+                            <xs:enumeration value="73639000"/>
+                            <!-- Prescription drug -->
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="codeSystem" type="xs:string" use="required"
+                    fixed="2.16.840.1.113883.6.96"/>
+                <xs:attribute name="codeSystemName" type="xs:string" fixed="SNOMED CT"/>
+                <xs:attribute name="displayName" use="optional">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="Over the counter products"/>
+                            <xs:enumeration value="Prescription drug"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:restriction>
+
+        </xs:complexContent>
     </xs:complexType>
-    
+
+    <xs:complexType name="statusOfMedication">
+        <xs:annotation>
+            <xs:documentation>
+                Used to indicate the status of the medication
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:restriction base="core:codedValue">
+                <xs:attribute name="code" use="required" fixed="33999-4"/>
+                <xs:attribute name="codeSystem" type="xs:string" use="required"
+                    fixed="2.16.840.1.113883.6.1"/>
+                <xs:attribute name="codeSystemName" type="xs:string" fixed="LOINC"/>
+                <xs:attribute name="displayName" type="xs:string" fixed="Status"/>
+            </xs:restriction>
+
+        </xs:complexContent>
+    </xs:complexType>
+
     <xs:complexType name="dose">
         <xs:annotation>
             <xs:documentation>
@@ -283,7 +171,7 @@
             </xs:simpleType>
         </xs:attribute>
     </xs:complexType>
-    
+
     <xs:complexType name="doseRestriction">
         <xs:annotation>
             <xs:documentation>
@@ -295,7 +183,7 @@
             <xs:element name="denominator" type="medst:dose"/>
         </xs:sequence>
     </xs:complexType>
-    
+
     <xs:complexType name="codedProductName">
         <xs:annotation>
             <xs:documentation>
@@ -307,16 +195,16 @@
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="originalText" type="xs:string"/>
-            <xs:element name="translation" minOccurs="0">
+            <xs:element name="codedBrandName" minOccurs="0" maxOccurs="unbounded">
                 <xs:complexType>
                     <xs:attributeGroup ref="medst:medicationCodeAttributes"/>
                 </xs:complexType>
             </xs:element>
+            <xs:element name="freeTextProductName" type="xs:string"/>
         </xs:sequence>
         <xs:attributeGroup ref="medst:medicationCodeAttributes"/>
     </xs:complexType>
-    
+
     <xs:attributeGroup name="medicationCodeAttributes">
         <xs:annotation>
             <xs:documentation>
@@ -335,27 +223,37 @@
         <xs:attribute name="codeSystemName">
             <xs:simpleType>
                 <xs:restriction base="xs:string">
-                    <xs:enumeration value="RxNorm"/> <!-- Brand Names and Clinical Drugs -->
-                    <xs:enumeration value="NDC"/> <!-- Packaged Product -->
-                    <xs:enumeration value="NDF-RT"/> <!-- Drug Class -->
-                    <xs:enumeration value="UNII"/> <!-- FDA Unique Ingredient Identifier Ingredient Name-->
-                    <xs:enumeration value="CVX"/> <!-- Use for Immunizations-->
+                    <xs:enumeration value="RxNorm"/>
+                    <!-- Brand Names and Clinical Drugs -->
+                    <xs:enumeration value="NDC"/>
+                    <!-- Packaged Product -->
+                    <xs:enumeration value="NDF-RT"/>
+                    <!-- Drug Class -->
+                    <xs:enumeration value="UNII"/>
+                    <!-- FDA Unique Ingredient Identifier Ingredient Name-->
+                    <xs:enumeration value="CVX"/>
+                    <!-- Use for Immunizations-->
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="codeSystem" use="optional">
             <xs:simpleType>
                 <xs:restriction base="xs:string">
-                    <xs:enumeration value="2.16.840.1.113883.6.88"/> <!-- RxNorm -->
-                    <xs:enumeration value="2.16.840.1.113883.6.69"/> <!-- NDC -->
-                    <xs:enumeration value="2.16.840.1.113883.4.209"/> <!-- NDF-RT -->
-                    <xs:enumeration value="2.16.840.1.113883.4.9"/> <!-- UNII -->
-                    <xs:enumeration value="2.16.840.1.113883.3.88.11.32.9"/> <!-- CVX -->
+                    <xs:enumeration value="2.16.840.1.113883.6.88"/>
+                    <!-- RxNorm -->
+                    <xs:enumeration value="2.16.840.1.113883.6.69"/>
+                    <!-- NDC -->
+                    <xs:enumeration value="2.16.840.1.113883.4.209"/>
+                    <!-- NDF-RT -->
+                    <xs:enumeration value="2.16.840.1.113883.4.9"/>
+                    <!-- UNII -->
+                    <xs:enumeration value="2.16.840.1.113883.3.88.11.32.9"/>
+                    <!-- CVX -->
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
-    
+
     <xs:complexType name="doseIndicator">
         <xs:annotation>
             <xs:documentation>
@@ -372,60 +270,6 @@
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
-    </xs:complexType>
-    
-    <xs:complexType name="medicationObservationCodes">
-        <xs:annotation>
-            <xs:documentation>
-                If a "Type of Medication" observation is being recorded, the code represents the medication actually
-                or intended to be administered or supplied and is derived from a limited set of SNOMED CT values. If
-                a "Medication Status" observation is being recorded, use the Status code 33999-4 from LOINC.
-                A "Medication Series Number" observation should use the Dose number code 30973-2 from LOINC.
-                An "Indication" observation SHALL be coded using the VA/KP Problem List Subset of SNOMED CT, and the
-                subset of codes can be found at www.cancer.gov/cancertopics/terminologyresources/FDA.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexContent>
-            <xs:restriction base="core:codedValue">
-                <xs:attribute name="code" use="required">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:token">
-                            <xs:enumeration value="329505003"/> <!-- Over the counter products -->
-                            <xs:enumeration value="73639000"/> <!-- Prescription Drug -->
-                            <xs:enumeration value="33999-4"/> <!-- Status -->
-                            <xs:enumeration value="30973-2"/> <!-- Dose number -->
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:attribute>
-                <xs:attribute name="displayName">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:enumeration value="Over the counter products"/>
-                            <xs:enumeration value="Prescription Drug"/>
-                            <xs:enumeration value="Status"/>
-                            <xs:enumeration value="Dose number"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:attribute>
-                <xs:attribute name="codeSystemName">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:enumeration value="SNOMED CT"/>
-                            <xs:enumeration value="LOINC"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:attribute>
-                <xs:attribute name="codeSystem" use="required">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:enumeration value="2.16.840.1.113883.6.96"/> <!-- SNOMED CT -->
-                            <xs:enumeration value="2.16.840.1.113883.6.1"/> <!-- LOINC -->
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:attribute>
-                
-            </xs:restriction>
-        </xs:complexContent>
     </xs:complexType>
 
 

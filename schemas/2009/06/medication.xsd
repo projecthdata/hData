@@ -26,9 +26,7 @@ See L32_ClinicalDocument.xsd for license details
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="code" type="core:codedValue" minOccurs="0"/>
-            <xs:element name="text" type="xs:string" minOccurs="0"/>
-            <xs:element name="statusCode" type="core:statusCode" minOccurs="0"/>
+            <xs:element name="freeTextSig" type="xs:string" minOccurs="0"/>
             <xs:element name="effectiveTime" type="xs:dateTime" minOccurs="1" maxOccurs="2">
                 <xs:annotation>
                     <xs:documentation>
@@ -37,26 +35,18 @@ See L32_ClinicalDocument.xsd for license details
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="routeCode" type="medst:routeOrProductForm" minOccurs="0"/>
-            <xs:element name="approachSiteCode" type="core:codedValue" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="doseQuantity" type="medst:dose" minOccurs="0"/>
-            <xs:element name="maxDoseQuantity" type="medst:doseRestriction" minOccurs="0"/>
-            <xs:element name="administrationUnitCode" type="medst:routeOrProductForm" minOccurs="0"/>
-            <xs:element name="consumable" type="medst:medicationInformation"/>
-            <xs:element name="performer" type="core:actor" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="informant" type="core:informant" minOccurs="1" maxOccurs="unbounded"/>
-            <xs:element name="participant" type="medst:vehicle" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="entryRelationship" type="medst:medicationInformationEntry" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="precondition" type="medst:doseIndicator" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="route" type="medst:routeOrProductForm" minOccurs="0"/>
+            <xs:element name="dose" type="medst:dose" minOccurs="0"/>
+            <xs:element name="site" type="core:codedValue" minOccurs="0"/>
+            <xs:element name="doseRestriction" type="medst:doseRestriction" minOccurs="0"/>
+            <xs:element name="productForm" type="medst:routeOrProductForm" minOccurs="0"/>
+            <xs:element name="deliveryMethod" type="core:codedValue" minOccurs="0"/>
+            <xs:element name="medicationInformation" type="medst:medicationInformation"/>
+            <xs:element name="medicationType" type="medst:medicationType" minOccurs="0"/>
+            <xs:element name="statusOfMedication" type="medst:statusOfMedication" minOccurs="0"/>
+            <xs:element name="patientInstructions" type="xs:string" minOccurs="0"/>
+            <xs:element name="orderInformation" type="medst:orderInformation" minOccurs="0"/>
         </xs:sequence>
-        <xs:attribute name="moodCode">
-            <xs:simpleType>
-                <xs:restriction base="xs:string">
-                    <xs:enumeration value="INT"/> <!-- intent, -what a physician intends for a patient to be taking -->
-                    <xs:enumeration value="EVN"/> <!-- event, actual use -->
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
     </xs:complexType>
     </xs:element> 
     
