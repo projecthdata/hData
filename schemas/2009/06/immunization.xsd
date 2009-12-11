@@ -16,10 +16,12 @@
   xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
   xmlns:i="http://projecthdata.org/hdata/schemas/2009/06/immunization"
   xmlns:medst="http://projecthdata.org/hdata/schemas/2009/06/medication_types">
-  
-  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core" schemaLocation="core_data_types.xsd"/>
-  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/medication_types" schemaLocation="medication_types.xsd"/>
-  
+
+  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
+    schemaLocation="core_data_types.xsd"/>
+  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/medication_types"
+    schemaLocation="medication_types.xsd"/>
+
   <xs:annotation>
     <xs:documentation>
       This section is used to define a patients immunizations.
@@ -35,28 +37,16 @@
       The product element describes the substance used for the immunization.
     </xs:documentation>
   </xs:annotation>
-  
+
   <xs:element name="immunization">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="statusCode" type="core:statusCode" minOccurs="0"/>
-        <xs:element name="effectiveTime" type="xs:dateTime" minOccurs="0"/><!-- Administered date -->
-        <xs:element name="approachSiteCode" type="core:codedValue" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element name="consumable" type="medst:medicationInformation"/>
+        <xs:element name="administeredDate" type="xs:dateTime" minOccurs="0"/>
         <xs:element name="performer" type="core:actor" minOccurs="0"/>
+        <xs:element name="medicationInformation" type="medst:medicationInformation"/>
         <xs:element name="informant" type="core:informant" minOccurs="1" maxOccurs="unbounded"/>
-        <xs:element name="entryRelationship" type="medst:medicationInformationEntry" minOccurs="0" maxOccurs="unbounded">
-          <xs:annotation>
-            <xs:documentation>
-              Use typeCode SUBJ for a Medication Series Number and typeCode CAUS for a Reaction.
-              Indicate which in a series of administrations a particular administration represents
-              (e.g. “hepatitis B vaccine number 2”) with SUBJ. CAUS for reaction is used to represent
-              any noted intended or unintended effects of the product. For example: full body rash,
-              nausea, rash resolved.
-            </xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="text" type="xs:string" />
+        <xs:element name="text" type="xs:string"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
