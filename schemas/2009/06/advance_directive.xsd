@@ -16,12 +16,12 @@
   xmlns:ad="http://projecthdata.org/hdata/schemas/2009/06/advance_directive"
   xmlns:adt="http://projecthdata.org/hdata/schemas/2009/06/advance_directive_types"
   xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
-  
+
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
     schemaLocation="core_data_types.xsd"/>
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/advance_directive_types"
     schemaLocation="advance_directive_types.xsd"/>
-  
+
   <xs:element name="advanceDirective">
     <xs:annotation>
       <xs:documentation> This section contains information regarding any advance directive
@@ -43,9 +43,10 @@
         <xs:documentation> An Advance Directive Event entry. </xs:documentation>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="code" type="adt:advanceDirectiveType"/>
-        <xs:element name="effectiveTime" type="core:dateRange"/>
-        <xs:element name="informant" type="core:informant" minOccurs="1" maxOccurs="unbounded"/>
+        <xs:element name="type" type="adt:advanceDirectiveType"/>
+        <xs:element name="freeTextType" type="xs:string" minOccurs="1"/>
+        <xs:element name="effectiveDate" type="core:dateRange" minOccurs="1"/>
+        <xs:element name="custodianOfTheDocument" type="core:informant" minOccurs="1" maxOccurs="unbounded"/>
         <xs:element name="status" type="adt:statusObservation"/>
       </xs:sequence>
     </xs:complexType>
