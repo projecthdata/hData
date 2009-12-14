@@ -22,12 +22,13 @@
   <xs:element name="encounter">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="id" type="core:instanceIdentifier"/>
-        <xs:element name="type" type="encounter:encounterType" minOccurs="0"/>
-        <xs:element name="freeTextType" type="xs:string"/>
-        <xs:element name="effectiveDate" type="core:dateRange"/>
-        <xs:element name="provider" type="core:actor" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element name="informer" type="core:informant" minOccurs="0"/>
+        <xs:element name="encounterId" type="core:instanceIdentifier"/>
+        <xs:element name="encounterType" type="encounter:encounterType" minOccurs="0"/>
+        <xs:element name="encounterFreeTextType" type="xs:string"/>
+        <xs:element name="encounterDate" type="core:dateRange"/>
+        <xs:element name="encounterProvider" type="core:actor" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="informationSource" type="core:informant" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="narrative" type="xs:string"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
