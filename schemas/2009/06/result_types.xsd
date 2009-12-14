@@ -57,24 +57,15 @@
         </xs:complexContent>
     </xs:complexType>
     
-    <xs:complexType name="ResultReferenceRange" abstract="true">
+    <xs:complexType name="resultReferenceRange" abstract="true">
         <xs:annotation>
             <xs:documentation>
                 Reference ranges for the observation.
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="observationRange">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="text" type="xs:string" minOccurs="0"/>
-                    </xs:sequence>
-                    <xs:attribute name="classCode" type="xs:string" use="optional" default="OBS"/>
-                    <xs:attribute name="moodCode" type="xs:string" use="optional" fixed="EVN.CRT"/>
-                </xs:complexType>
-            </xs:element>
+           <xs:element name="text" type="xs:string" minOccurs="0"/>
         </xs:sequence>
-        <xs:attribute name="typeCode" type="xs:string" use="optional" fixed="REFV"/>
     </xs:complexType>
     
     
