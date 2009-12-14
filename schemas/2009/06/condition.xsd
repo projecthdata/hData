@@ -28,18 +28,25 @@
         This section is used to describe a patients problems/conditions. The types of conditions described have been constrained to the SNOMED CT 
         Problem Type code set.
         
-        The dateRange element is used to define the time during which the condition was last observed/active. 
+        The problemDate element is used to define the time during which the condition was last observed/active. 
         
-        The type element is used to describe the type of problem/condition.
+        The problemType element is used to describe the type of problem/condition.
         
         An unbounded number of treating providers for the particular condition can be supplied.
+        
+        Element names map to HITSP Data Element Names in the HITSP C83, with the expcetion informationSource and narrative
+        
+        informationSource maps to the HITSP Information Source Content Module Specified in the C83
+        
+        narrative element referrs to narrative (human readable) style content. Usually a human readable version of the
+        encoded content.
       </xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="effectiveDate" type="core:dateRange"/>
+        <xs:element name="problemDate" type="core:dateRange"/>
         <xs:element name="problemType" type="conditionst:problemType"/>
-        <xs:element name="name" type="xs:string" minOccurs="0"/>
+        <xs:element name="problemName" type="xs:string" minOccurs="0"/>
         <xs:element name="problemCode" type="conditionst:problemCode"/>
         <xs:element minOccurs="0" maxOccurs="unbounded" name="treatingProvider">
           <xs:complexType>
@@ -61,8 +68,8 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-
-
+        <xs:element name="informationSource" type="core:informant" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="narrative" type="xs:string"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
