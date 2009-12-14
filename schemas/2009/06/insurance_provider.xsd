@@ -23,20 +23,17 @@
   <xs:element name="insuranceProvider">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="PolicyActivity" maxOccurs="unbounded">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="groupNumber" type="core:instanceIdentifier"/>
-              <xs:element name="healthInsuranceType" type="it:healthInsuranceTypeCode"/>
-              <xs:element name="performer" type="it:payer"/>
-              <xs:element name="participant" type="it:memberOrSubscriberInformation"/>
-              <xs:element name="entryRelationship" type="it:healthPlan" minOccurs="0" maxOccurs="unbounded"/>
-            </xs:sequence>
-            <xs:attribute name="sequenceNumber" type="xs:integer"/>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="informant" type="core:informant"/>
-        <xs:element name="text" type="xs:string"/>
+        <xs:element name="id" type="core:instanceIdentifier"/>
+        <xs:element name="healthInsuranceType" type="it:healthInsuranceTypeCode" minOccurs="0"/>
+        <xs:element name="payer" type="core:actor"/>
+        <xs:element name="healthPlanCoverageDates" type="core:dateRange"/>
+        <xs:element name="patient" type="it:patient"/>
+        <xs:element name="financialResponsibilityPartyType" type="it:financialResponsibilityPartyType"/>
+        <xs:element name="subscriber" type="it:subscriber"/>
+        <xs:element name="guarantorInformation" type="it:guarantorInformation"/>
+        <xs:element name="healthPlanName" type="xs:string"/>
+        <xs:element name="informationSource" type="core:informant" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="narrative" type="xs:string"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
