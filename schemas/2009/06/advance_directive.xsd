@@ -35,8 +35,8 @@
         date element denotes the date the directive was last updated. The optional custodian element
         describes the person who currently is responsible for maintaing the advance directive. As
         with most other hData sections there is a informationSource (where this data originated) and
-        description( free text narrative section) defined for this element, both of which are
-        optional. </xs:documentation>
+        a free text narrative section defined for this element. The informationSource is optional. 
+      </xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:annotation>
@@ -48,6 +48,8 @@
         <xs:element name="effectiveDate" type="core:dateRange" minOccurs="1"/>
         <xs:element name="custodianOfTheDocument" type="core:informant" minOccurs="1" maxOccurs="unbounded"/>
         <xs:element name="status" type="adt:statusObservation"/>
+        <xs:element name="informationSource" type="core:informant" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="narrative" type="xs:string"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
