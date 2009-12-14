@@ -21,42 +21,25 @@
   <xs:element name="procedure">
     <xs:annotation>
       <xs:documentation>
+        This section is used to define procedures.
         
-        dateRange: defines the date range of the procedure
+        Element names map to HITSP Data Element Names in the HITSP C83, with the expcetion informationSource and narrative
         
-        type: codedValue used to define the type of procedure performed. The coded value attributes are not currently constrained
-              but a free text description of the type of procedure must be supplied as the value for the type element.
-              
-         status:  codedValue used to define the current status of the procedure. 
-         
-         product: codedValue used to define any products used during the procedure
-         
-         substance: codedValue used to represent what the procedure was performed on.
-         
-         performer: the person or organization that performed the procedure.
-         
+        informationSource maps to the HITSP Information Source Content Module Specified in the C83
+        
+        narrative element referrs to narrative (human readable) style content. Usually a human readable version of the
+        encoded content.         
       </xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="type" type="procedure:procedureCode"/>
-        <xs:element name="effectiveTime" type="core:dateRange"/>
-        <xs:element name="status">
-          <xs:simpleType>
-            <xs:restriction base="xs:string">
-              <xs:enumeration value="cancelled"/>
-              <xs:enumeration value="held"/>
-              <xs:enumeration value="active"/>
-              <xs:enumeration value="aborted"/>
-              <xs:enumeration value="completed"/>
-            </xs:restriction>
-          </xs:simpleType>
-        </xs:element>
-        <xs:element name="methodCode" type="core:codedValue"/>
-        <xs:element name="targetSiteCode" type="core:codedValue"/>
-        <xs:element name="informant" type="core:informant"/>
+        <xs:element name="procedureId" type="core:instanceIdentifier"/>
+        <xs:element name="procedureType" type="procedure:procedureCode" minOccurs="0"/>
+        <xs:element name="procedureFreeTextType" type="xs:string"/>
+        <xs:element name="procedureDate" type="xs:dateTime"/>
         <xs:element name="performer" type="core:actor" minOccurs="0"/>
-        <xs:element name="text" type="xs:string"/>
+        <xs:element name="informationSource" type="core:informant" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="narrative" type="xs:string"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
