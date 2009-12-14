@@ -14,17 +14,7 @@ See L32_ClinicalDocument.xsd for license details
     <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/medication_types" schemaLocation="medication_types.xsd"/>
     
     <xs:element name="medications">
-        <xs:complexType>
-        <xs:annotation>
-            <xs:documentation>
-                Substance administration includes information about what has been administered
-                and what has been dispensed.
-                A pharmacy system usually reports what was actually filled (supply event),
-                along with intended use (substance administration intent). A physician often
-                reports intended use (substance administration and supply intent). A patient or
-                family member will usually report actual use (substance administration event).
-            </xs:documentation>
-        </xs:annotation>
+      <xs:complexType>
         <xs:sequence>
             <xs:element name="freeTextSig" type="xs:string" minOccurs="0"/>
             <xs:element name="effectiveTime" type="xs:dateTime" minOccurs="1" maxOccurs="2">
@@ -46,8 +36,10 @@ See L32_ClinicalDocument.xsd for license details
             <xs:element name="statusOfMedication" type="medst:statusOfMedication" minOccurs="0"/>
             <xs:element name="patientInstructions" type="xs:string" minOccurs="0"/>
             <xs:element name="orderInformation" type="medst:orderInformation" minOccurs="0"/>
+            <xs:element name="informationSource" type="core:informant" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="narrative" type="xs:string"/>
         </xs:sequence>
-    </xs:complexType>
+      </xs:complexType>
     </xs:element> 
     
 </xs:schema>
