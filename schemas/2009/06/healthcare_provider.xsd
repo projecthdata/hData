@@ -43,11 +43,12 @@
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="patientId" type="xs:string"/>
-        <xs:element name="effectiveDate" type="core:dateRange"/>
-        <xs:element name="role" type="provider:providerRole"/> 
-        <xs:element name="providertype" type="provider:providerType"/>
-        <xs:element name="name" type="core:actor"/>
+        <xs:element name="dateRange" type="core:dateRange"/>
+        <xs:element name="providerRoleCoded" type="provider:providerRole" minOccurs="0"/>
+        <xs:element name="providerRoleFreeText" type="xs:string" minOccurs="0"/>
+        <xs:element name="providerType" type="provider:providerType" minOccurs="0"/>
+        <xs:element name="providerEntity" type="core:actor"/>
+        <xs:element name="providerPatientId" type="xs:string" minOccurs="0"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
