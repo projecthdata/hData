@@ -26,30 +26,82 @@
     <xs:documentation>
       This section is used to define a patients immunizations.
       
-      The date element is used to denote the date of the immunization
+      Element names map to HITSP Data Element Names in the HITSP C83, with the expcetion informationSource and narrative
       
-      The refusal element is used to describe why a patient refused the immunization if needed.
+      informationSource maps to the HITSP Information Source Content Module Specified in the C83
       
-      The series number element is used to describe series information about the immunization, if needed.
-      
-      The performer element is used to define the person/organization that performed the immunization.
-      
-      The product element describes the substance used for the immunization.
+      narrative element referrs to narrative (human readable) style content. Usually a human readable version of the
+      encoded content.
     </xs:documentation>
   </xs:annotation>
 
   <xs:element name="immunization">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="statusCode" type="core:statusCode" minOccurs="0"/>
+        <xs:element name="refusal" type="xs:boolean"/>
         <xs:element name="administeredDate" type="xs:dateTime" minOccurs="0"/>
         <xs:element name="performer" type="core:actor" minOccurs="0"/>
         <xs:element name="medicationInformation" type="medst:medicationInformation"/>
-        <xs:element name="informant" type="core:informant" minOccurs="1" maxOccurs="unbounded"/>
-        <xs:element name="text" type="xs:string"/>
+        <xs:element name="refusalReason" type="i:noImmunizationReason" minOccurs="0"/>
+        <xs:element name="informationSource" type="core:informant" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="narrative" type="xs:string"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  
+  <xs:complexType name="noImmunizationReason" abstract="true">
+    <xs:annotation>
+      <xs:documentation>
+        Set of reasons for not receiving an immunization. It is the HL7 ActNoImmunizationReason value set.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:restriction base="core:codedValue">
+        <xs:sequence>
+          <xs:element form="unqualified" name="value" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="code" use="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="IMMUNE" />
+              <!-- Immunity -->
+              <xs:enumeration value="MEDPREC" />
+              <!-- medical precaution -->
+              <xs:enumeration value="OSTOCK" />
+              <!-- Out of stock -->
+              <xs:enumeration value="PATOBJ" />
+              <!-- patient objection -->
+              <xs:enumeration value="PHILISOP" />
+              <!-- philosophical objection -->
+              <xs:enumeration value="RELIG" />
+              <!-- religious objection -->
+              <xs:enumeration value="VACEFF" />
+              <!-- vaccine efficacy concerns -->
+              <xs:enumeration value="VACSAF" />
+              <!-- vaccine safety concerns -->
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="displayName" use="optional">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="Immunity" />
+              <xs:enumeration value="medical precaution" />
+              <xs:enumeration value="Out of stock" />
+              <xs:enumeration value="patient objection" />
+              <xs:enumeration value="philosophical objection" />
+              <xs:enumeration value="religious objection" />
+              <xs:enumeration value="vaccine efficacy concerns" />
+              <xs:enumeration value="vaccine safety concerns" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="codeSystemName" type="xs:string" fixed="ActNoImmunizationReason" />
+        <xs:attribute name="codeSystem" type="xs:string" fixed="2.16.840.1.113883.1.11.19717" use="required"/>
+        
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
 
 
 </xs:schema>
