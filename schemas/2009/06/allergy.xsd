@@ -26,31 +26,33 @@
   <xs:element name="allergy">
     <xs:annotation>
       <xs:documentation>
-      
       This section is used to describe a patients allergies and intolerances to various substances.  The section defines a number of 
       codedValue sections which are constrained to particular coding system (SNOMED CT) which are described below.
       
-      The date element is used to state the date of the last reaction to the allergy or intolerance.
+      The adverseEventDate element is used to state the date of the last reaction to the allergy or intolerance.
       
       The product element is a coded value used to describe the substance the patient has the allergy or intolerance too.  There currently is 
       not a constraint defined on the code system or code values which can be used to coded the product. At the very least a free text description
       the substance must be supplied as the value of the product element with implementers free to choose the coding system of their choice.
       
+      Element names map to HITSP Data Element Names in the HITSP C83, with the expcetion informationSource and narrative
       
-      This section also contains optional informationSource and description elements which are defined and documented in the 
-      abstractSection type declared in the hdata core.xsd schema file.
+      informationSource maps to the HITSP Information Source Content Module Specified in the C83
+      
+      narrative element referrs to narrative (human readable) style content. Usually a human readable version of the
+      encoded content.
       </xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="effectiveDate" type="core:dateRange" minOccurs="0"/>
-        <xs:element name="type" type="allergyt:adverseEventType" minOccurs="0"/>
+        <xs:element name="adverseEventDate" type="core:dateRange" minOccurs="0"/>
+        <xs:element name="adverseEventType" type="allergyt:adverseEventType" minOccurs="0"/>
         <xs:element name="product" type="allergyt:product"/>
         <xs:element name="reaction" type="allergyt:reaction"/>
         <xs:element name="severity" type="allergyt:severity"/>
-        <xs:element name="informant" type="core:informant" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element name="text" type="xs:string" minOccurs="0"/>
-        <xs:element name="alertStatus" type="allergyt:alertStatus" maxOccurs="1"/>
+        <xs:element name="alertStatus" type="allergyt:alertStatus"/>
+        <xs:element name="informationSource" type="core:informant" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="narrative" type="xs:string"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
