@@ -9,37 +9,40 @@ See L32_ClinicalDocument.xsd for license details
     xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
     xmlns:meds="http://projecthdata.org/hdata/schemas/2009/06/medication"
     xmlns:medst="http://projecthdata.org/hdata/schemas/2009/06/medication_types">
-    
-    <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core" schemaLocation="core_data_types.xsd"/>
-    <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/medication_types" schemaLocation="medication_types.xsd"/>
-    
-    <xs:element name="medications">
-      <xs:complexType>
-        <xs:sequence>
-            <xs:element name="freeTextSig" type="xs:string" minOccurs="0"/>
-            <xs:element name="effectiveTime" type="xs:dateTime" minOccurs="1" maxOccurs="2">
-                <xs:annotation>
-                    <xs:documentation>
+
+    <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
+        schemaLocation="core_data_types.xsd"/>
+    <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/medication_types"
+        schemaLocation="medication_types.xsd"/>
+
+    <xs:element name="medication">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="freeTextSig" type="xs:string" minOccurs="0"/>
+                <xs:element name="effectiveTime" type="xs:dateTime" minOccurs="1" maxOccurs="2">
+                    <xs:annotation>
+                        <xs:documentation>
                         Used to indicate actual or intended start and stop date of a medication,
                         and frequency of administration.
                     </xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="route" type="medst:routeOrProductForm" minOccurs="0"/>
-            <xs:element name="dose" type="medst:dose" minOccurs="0"/>
-            <xs:element name="site" type="core:codedValue" minOccurs="0"/>
-            <xs:element name="doseRestriction" type="medst:doseRestriction" minOccurs="0"/>
-            <xs:element name="productForm" type="medst:routeOrProductForm" minOccurs="0"/>
-            <xs:element name="deliveryMethod" type="core:codedValue" minOccurs="0"/>
-            <xs:element name="medicationInformation" type="medst:medicationInformation"/>
-            <xs:element name="medicationType" type="medst:medicationType" minOccurs="0"/>
-            <xs:element name="statusOfMedication" type="medst:statusOfMedication" minOccurs="0"/>
-            <xs:element name="patientInstructions" type="xs:string" minOccurs="0"/>
-            <xs:element name="orderInformation" type="medst:orderInformation" minOccurs="0"/>
-            <xs:element name="informationSource" type="core:informant" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="narrative" type="xs:string"/>
-        </xs:sequence>
-      </xs:complexType>
-    </xs:element> 
-    
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="route" type="medst:routeOrProductForm" minOccurs="0"/>
+                <xs:element name="dose" type="medst:dose" minOccurs="0"/>
+                <xs:element name="site" type="core:codedValue" minOccurs="0"/>
+                <xs:element name="doseRestriction" type="medst:doseRestriction" minOccurs="0"/>
+                <xs:element name="productForm" type="medst:routeOrProductForm" minOccurs="0"/>
+                <xs:element name="deliveryMethod" type="core:codedValue" minOccurs="0"/>
+                <xs:element name="medicationInformation" type="medst:medicationInformation"/>
+                <xs:element name="medicationType" type="medst:medicationType" minOccurs="0"/>
+                <xs:element name="statusOfMedication" type="medst:statusOfMedication" minOccurs="0"/>
+                <xs:element name="patientInstructions" type="xs:string" minOccurs="0"/>
+                <xs:element name="orderInformation" type="medst:orderInformation" minOccurs="0"/>
+                <xs:element name="informationSource" type="core:informant" minOccurs="0"
+                    maxOccurs="unbounded"/>
+                <xs:element name="narrative" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
 </xs:schema>
