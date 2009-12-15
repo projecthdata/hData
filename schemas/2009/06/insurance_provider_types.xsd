@@ -82,12 +82,12 @@
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
                             <xs:enumeration value="Medicare Secondary Working Aged Beneficiary or Spouse with Employer Group Health Plan"/>
-                            <xs:enumeration value="Medicare Secondary End-Stage Renal Disease Beneficiary in the 12 month coordination period with an employer’s group health plan"/>
+                            <xs:enumeration value="Medicare Secondary End-Stage Renal Disease Beneficiary in the 12 month coordination period with an employer's group health plan"/>
                             <xs:enumeration value="Medicare Secondary, No-fault Insurance including Auto is Primary"/>
-                            <xs:enumeration value="Medicare Secondary Worker’s Compensation"/>
+                            <xs:enumeration value="Medicare Secondary Worker's Compensation"/>
                             <xs:enumeration value="Medicare Secondary Public Health Service (PHS)or Other Federal Agency"/>
                             <xs:enumeration value="Medicare Secondary Black Lung"/>
-                            <xs:enumeration value="Medicare Secondary Veteran’s Administration"/>
+                            <xs:enumeration value="Medicare Secondary Veteran's Administration"/>
                             <xs:enumeration value="Medicare Secondary Disabled Beneficiary Under Age 65 with Large Group Health Plan (LGHP)"/>
                             <xs:enumeration value="Medicare Secondary, Other Liability Insurance is Primary"/>
                             <xs:enumeration value="Auto Insurance Policy"/>
