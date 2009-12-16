@@ -19,7 +19,7 @@
     
     <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core" schemaLocation="core_data_types.xsd"/>
  
-    <xs:complexType name="healthInsuranceTypeCode" abstract="true">
+    <xs:complexType name="healthInsuranceTypeCode">
         <xs:annotation>
             <xs:documentation>
                 The type of health plan covering the individual(HMO, PPO, POS, Medicare Part A/B, etc). 
@@ -135,7 +135,7 @@
         </xs:complexContent>
     </xs:complexType>
     
-    <xs:complexType name="patient" abstract="true">
+    <xs:complexType name="patient">
         <xs:complexContent>
             <xs:extension base="core:person">
                 <xs:sequence>
@@ -147,7 +147,7 @@
         </xs:complexContent>
     </xs:complexType>
     
-    <xs:complexType name="subscriber" abstract="true">
+    <xs:complexType name="subscriber">
         <xs:complexContent>
             <xs:extension base="core:person">
                 <xs:sequence>
@@ -158,7 +158,7 @@
         </xs:complexContent>
     </xs:complexType>
     
-    <xs:complexType name="financialResponsibilityPartyType" abstract="true">
+    <xs:complexType name="financialResponsibilityPartyType">
         <xs:annotation>
             <xs:documentation>
                 This data element identifies the type of the financially responsible party. The code attribute
@@ -184,7 +184,7 @@
         </xs:sequence>
     </xs:complexType>
         
-    <xs:complexType name="patientRelationshipToSubscriber" abstract="true">
+    <xs:complexType name="patientRelationshipToSubscriber">
         <xs:annotation>
             <xs:documentation>
                 Specifies only if the patient is the subscriber or dependent within the context

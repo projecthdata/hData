@@ -75,7 +75,7 @@
         </xs:complexType>
     </xs:element>
     
-    <xs:complexType name="contactRelationship" abstract="true">
+    <xs:complexType name="contactRelationship">
         <xs:annotation>
             <xs:documentation>
                 Identifies the relationship of the contact person to the individual for which

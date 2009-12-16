@@ -33,7 +33,7 @@
     </xs:complexType>
   </xs:element>
   
-  <xs:complexType name="encounterType" abstract="true" >
+  <xs:complexType name="encounterType">
     <xs:complexContent>
       <xs:restriction base="core:codedValue">
         <xs:annotation>

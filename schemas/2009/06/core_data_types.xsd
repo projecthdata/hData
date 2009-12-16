@@ -59,10 +59,10 @@
     <xs:sequence>
       <xs:element form="unqualified" minOccurs="0" name="value" type="xs:string"/>
     </xs:sequence>
-    <xs:attribute name="code" use="required"/>
+    <xs:attribute name="code" type="xs:string" use="required"/>
     <xs:attribute name="codeSystem" type="xs:string" use="required"/>
     <xs:attribute name="codeSystemName" type="xs:string"/>
-    <xs:attribute name="version" use="optional"/>
+    <xs:attribute name="version" type="xs:string" use="optional"/>
     <xs:attribute name="displayName" type="xs:string" use="optional"/>
   </xs:complexType>
 
@@ -86,7 +86,7 @@
   </xs:complexType>
 
   <xs:complexType name="telecom">
-    <xs:attribute name="value" use="required"/>
+    <xs:attribute name="value" use="required" type="xs:string"/>
     <xs:attribute name="type" use="required">
       <xs:simpleType>
          <xs:restriction base="xs:string">
@@ -136,7 +136,7 @@
         <xs:attribute name="codeSystemName" type="xs:string" fixed="HL7 AdministrativeGenderCode"/>
         <xs:attribute name="codeSystem" type="xs:string" use="required"
           fixed="2.16.840.1.113883.5.1"/>
-        <xs:attribute name="version"/>
+        <xs:attribute name="version" type="xs:string"/>
         <xs:attribute name="displayName">
           <xs:simpleType>
             <xs:restriction base="xs:string">
@@ -156,7 +156,7 @@
         <xs:attribute name="code" type="xs:string" use="required"/>
         <xs:attribute name="codeSystem" type="xs:string" use="required"/>
         <xs:attribute name="codeSystemName" type="xs:string"/>
-        <xs:attribute name="version" use="optional"/>
+        <xs:attribute name="version" use="optional" type="xs:string"/>
         <xs:attribute name="displayName" type="xs:string" use="optional"/>
       </xs:restriction>
     </xs:complexContent>

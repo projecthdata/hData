@@ -61,9 +61,9 @@
       <xs:sequence>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="core:section"/>
       </xs:sequence>
-      <xs:attribute name="path" use="required"/>
-      <xs:attribute name="name" use="required"/>
-      <xs:attribute name="typeId" use="required"/>
+      <xs:attribute name="path" use="required" type="xs:string"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+      <xs:attribute name="typeId" use="required" type="xs:string"/>
     </xs:complexType>
   </xs:element>
 </xs:schema>

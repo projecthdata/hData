@@ -18,7 +18,7 @@
     xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
     <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core" schemaLocation="core_data_types.xsd"/>
     
-    <xs:complexType name="resultType" abstract="true">
+    <xs:complexType name="resultType">
         <xs:annotation>
             <xs:documentation>
                 The result type can be selected from LOINC or SNOMED CT codes. For vital
@@ -57,7 +57,7 @@
         </xs:complexContent>
     </xs:complexType>
     
-    <xs:complexType name="resultReferenceRange" abstract="true">
+    <xs:complexType name="resultReferenceRange">
         <xs:annotation>
             <xs:documentation>
                 Reference ranges for the observation.

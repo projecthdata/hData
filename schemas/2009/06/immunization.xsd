@@ -49,7 +49,7 @@
     </xs:complexType>
   </xs:element>
   
-  <xs:complexType name="noImmunizationReason" abstract="true">
+  <xs:complexType name="noImmunizationReason">
     <xs:annotation>
       <xs:documentation>
         Set of reasons for not receiving an immunization. It is the HL7 ActNoImmunizationReason value set.

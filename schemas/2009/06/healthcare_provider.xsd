@@ -46,7 +46,7 @@
     </xs:complexType>
   </xs:element>
   
-  <xs:complexType name="providerType" abstract="true">
+  <xs:complexType name="providerType">
     <xs:annotation>
       <xs:documentation>
         Classifies providers according to the type of license or accreditation
@@ -120,7 +120,7 @@
     </xs:complexContent>
   </xs:complexType>
   
-  <xs:complexType name="providerRole" abstract="true">
+  <xs:complexType name="providerRole">
     <xs:annotation>
       <xs:documentation>
         Classifies providers according to the role they play in the healthcare of

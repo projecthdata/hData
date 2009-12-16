@@ -98,7 +98,7 @@
             </xs:attribute>
             <xs:attribute name="codeSystem" type="xs:string" use="required" fixed="2.16.840.1.113883.1.11.20.1"/>
             <xs:attribute name="codeSystemName" type="xs:string" fixed="AdvanceDirectiveStatusCode"/>
-            <xs:attribute name="version" use="optional"/>
+            <xs:attribute name="version" use="optional" type="xs:string"/>
             <xs:attribute name="displayName" use="optional">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
