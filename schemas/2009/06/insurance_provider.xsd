@@ -14,23 +14,22 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
   elementFormDefault="qualified" 
   targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/insurance_provider" 
-  xmlns:i="http://projecthdata.org/hdata/schemas/2009/06/insurance_provider" 
-  xmlns:it="http://projecthdata.org/hdata/schemas/2009/06/insurance_provider_types" 
+  xmlns:ip="http://projecthdata.org/hdata/schemas/2009/06/insurance_provider"  
   xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
   
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core" schemaLocation="core_data_types.xsd"/>
-  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/insurance_provider_types" schemaLocation="insurance_provider_types.xsd"></xs:import>
+  <xs:include schemaLocation="insurance_provider_types.xsd"/>
   <xs:element name="insuranceProvider">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="id" type="core:instanceIdentifier"/>
-        <xs:element name="healthInsuranceType" type="it:healthInsuranceTypeCode" minOccurs="0"/>
+        <xs:element name="healthInsuranceType" type="ip:healthInsuranceTypeCode" minOccurs="0"/>
         <xs:element name="payer" type="core:actor"/>
         <xs:element name="healthPlanCoverageDates" type="core:dateRange"/>
-        <xs:element name="patient" type="it:patient"/>
-        <xs:element name="financialResponsibilityPartyType" type="it:financialResponsibilityPartyType"/>
-        <xs:element name="subscriber" type="it:subscriber"/>
-        <xs:element name="guarantorInformation" type="it:guarantorInformation"/>
+        <xs:element name="patient" type="ip:patient"/>
+        <xs:element name="financialResponsibilityPartyType" type="ip:financialResponsibilityPartyType"/>
+        <xs:element name="subscriber" type="ip:subscriber"/>
+        <xs:element name="guarantorInformation" type="ip:guarantorInformation"/>
         <xs:element name="healthPlanName" type="xs:string"/>
         <xs:element name="informationSource" type="core:informant" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="narrative" type="xs:string"/>

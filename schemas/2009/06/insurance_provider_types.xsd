@@ -13,8 +13,8 @@
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
     elementFormDefault="qualified" 
-    targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/insurance_provider_types" 
-    xmlns:it="http://projecthdata.org/hdata/schemas/2009/06/insurance_provider_types" 
+    targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/insurance_provider"
+    xmlns:ip="http://projecthdata.org/hdata/schemas/2009/06/insurance_provider" 
     xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
     
     <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core" schemaLocation="core_data_types.xsd"/>
@@ -140,7 +140,7 @@
             <xs:extension base="core:person">
                 <xs:sequence>
                     <xs:element name="memberId" type="core:instanceIdentifier" minOccurs="0"/>
-                    <xs:element name="patientRelationshipToSubscriber" type="it:patientRelationshipToSubscriber"/>
+                    <xs:element name="patientRelationshipToSubscriber" type="ip:patientRelationshipToSubscriber"/>
                     <xs:element name="patientDateOfBirth" type="xs:date"/>
                 </xs:sequence>
             </xs:extension>
