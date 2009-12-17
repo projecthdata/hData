@@ -12,9 +12,8 @@
     language governing permissions and limitations under the License. 
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:conditiont="http://projecthdata.org/hdata/schemas/2009/06/condition_types"
     xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
-    targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/condition_types"> 
+    targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/condition"> 
     
     <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
         schemaLocation="core_data_types.xsd"/>

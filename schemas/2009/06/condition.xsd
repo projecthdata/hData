@@ -14,13 +14,11 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
   targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/condition"
   xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
-  xmlns:conditions="http://projecthdata.org/hdata/schemas/2009/06/condition"
-  xmlns:conditionst="http://projecthdata.org/hdata/schemas/2009/06/condition_types">
+  xmlns:condition="http://projecthdata.org/hdata/schemas/2009/06/condition">
 
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
     schemaLocation="core_data_types.xsd"/>
-  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/condition_types"
-    schemaLocation="condition_types.xsd"/>
+  <xs:include schemaLocation="condition_types.xsd"/>
 
   <xs:element name="condition">
     <xs:annotation>
@@ -45,9 +43,9 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="problemDate" type="core:dateRange"/>
-        <xs:element name="problemType" type="conditionst:problemType"/>
+        <xs:element name="problemType" type="condition:problemType"/>
         <xs:element name="problemName" type="xs:string" minOccurs="0"/>
-        <xs:element name="problemCode" type="conditionst:problemCode"/>
+        <xs:element name="problemCode" type="condition:problemCode"/>
         <xs:element minOccurs="0" maxOccurs="unbounded" name="treatingProvider">
           <xs:complexType>
             <xs:annotation>
