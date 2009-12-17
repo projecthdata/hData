@@ -14,13 +14,11 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
   targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/advance_directive"
   xmlns:ad="http://projecthdata.org/hdata/schemas/2009/06/advance_directive"
-  xmlns:adt="http://projecthdata.org/hdata/schemas/2009/06/advance_directive_types"
   xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
 
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
     schemaLocation="core_data_types.xsd"/>
-  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/advance_directive_types"
-    schemaLocation="advance_directive_types.xsd"/>
+  <xs:include schemaLocation="advance_directive_types.xsd"/>
 
   <xs:element name="advanceDirective">
     <xs:annotation>
@@ -43,11 +41,11 @@
         <xs:documentation> An Advance Directive Event entry. </xs:documentation>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="type" type="adt:advanceDirectiveType"/>
+        <xs:element name="type" type="ad:advanceDirectiveType"/>
         <xs:element name="freeTextType" type="xs:string" minOccurs="1"/>
         <xs:element name="effectiveDate" type="core:dateRange" minOccurs="1"/>
         <xs:element name="custodianOfTheDocument" type="core:informant" minOccurs="1" maxOccurs="unbounded"/>
-        <xs:element name="status" type="adt:statusObservation"/>
+        <xs:element name="status" type="ad:statusObservation"/>
         <xs:element name="informationSource" type="core:informant" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="narrative" type="xs:string"/>
       </xs:sequence>

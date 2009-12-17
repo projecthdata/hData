@@ -12,9 +12,8 @@
     language governing permissions and limitations under the License. 
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:adt="http://projecthdata.org/hdata/schemas/2009/06/advance_directive_types"
     xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
-    targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/advance_directive_types"> 
+    targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/advance_directive"> 
 
     <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
         schemaLocation="core_data_types.xsd"/>
