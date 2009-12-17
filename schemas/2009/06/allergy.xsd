@@ -14,13 +14,11 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
   targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/allergy"
   xmlns:allergy="http://projecthdata.org/hdata/schemas/2009/06/allergy"
-  xmlns:allergyt="http://projecthdata.org/hdata/schemas/2009/06/allergy_types"
   xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
   
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
     schemaLocation="core_data_types.xsd"/>
-  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/allergy_types"
-    schemaLocation="allergy_types.xsd"/>
+  <xs:include schemaLocation="allergy_types.xsd"/>
   
   
   <xs:element name="allergy">
@@ -46,11 +44,11 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="adverseEventDate" type="core:dateRange" minOccurs="0"/>
-        <xs:element name="adverseEventType" type="allergyt:adverseEventType" minOccurs="0"/>
-        <xs:element name="product" type="allergyt:product"/>
-        <xs:element name="reaction" type="allergyt:reaction"/>
-        <xs:element name="severity" type="allergyt:severity"/>
-        <xs:element name="alertStatus" type="allergyt:alertStatus"/>
+        <xs:element name="adverseEventType" type="allergy:adverseEventType" minOccurs="0"/>
+        <xs:element name="product" type="allergy:product"/>
+        <xs:element name="reaction" type="allergy:reaction"/>
+        <xs:element name="severity" type="allergy:severity"/>
+        <xs:element name="alertStatus" type="allergy:alertStatus"/>
         <xs:element name="informationSource" type="core:informant" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="narrative" type="xs:string"/>
       </xs:sequence>

@@ -12,8 +12,7 @@
     language governing permissions and limitations under the License. 
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/allergy_types"
-    xmlns:allergyt="http://projecthdata.org/hdata/schemas/2009/06/allergy_types"
+    targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/allergy"
     xmlns:allergy="http://projecthdata.org/hdata/schemas/2009/06/allergy"
     xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core">
 
