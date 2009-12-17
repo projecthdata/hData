@@ -7,13 +7,11 @@ See L32_ClinicalDocument.xsd for license details
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
     targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/medication"
     xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
-    xmlns:meds="http://projecthdata.org/hdata/schemas/2009/06/medication"
-    xmlns:medst="http://projecthdata.org/hdata/schemas/2009/06/medication_types">
+    xmlns:med="http://projecthdata.org/hdata/schemas/2009/06/medication">
 
     <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
         schemaLocation="core_data_types.xsd"/>
-    <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/medication_types"
-        schemaLocation="medication_types.xsd"/>
+    <xs:include schemaLocation="medication_types.xsd"/>
 
     <xs:element name="medication">
         <xs:complexType>
@@ -27,17 +25,17 @@ See L32_ClinicalDocument.xsd for license details
                     </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="route" type="medst:routeOrProductForm" minOccurs="0"/>
-                <xs:element name="dose" type="medst:dose" minOccurs="0"/>
+                <xs:element name="route" type="med:routeOrProductForm" minOccurs="0"/>
+                <xs:element name="dose" type="med:dose" minOccurs="0"/>
                 <xs:element name="site" type="core:codedValue" minOccurs="0"/>
-                <xs:element name="doseRestriction" type="medst:doseRestriction" minOccurs="0"/>
-                <xs:element name="productForm" type="medst:routeOrProductForm" minOccurs="0"/>
+                <xs:element name="doseRestriction" type="med:doseRestriction" minOccurs="0"/>
+                <xs:element name="productForm" type="med:routeOrProductForm" minOccurs="0"/>
                 <xs:element name="deliveryMethod" type="core:codedValue" minOccurs="0"/>
-                <xs:element name="medicationInformation" type="medst:medicationInformation"/>
-                <xs:element name="medicationType" type="medst:medicationType" minOccurs="0"/>
-                <xs:element name="statusOfMedication" type="medst:statusOfMedication" minOccurs="0"/>
+                <xs:element name="medicationInformation" type="med:medicationInformation"/>
+                <xs:element name="medicationType" type="med:medicationType" minOccurs="0"/>
+                <xs:element name="statusOfMedication" type="med:statusOfMedication" minOccurs="0"/>
                 <xs:element name="patientInstructions" type="xs:string" minOccurs="0"/>
-                <xs:element name="orderInformation" type="medst:orderInformation" minOccurs="0"/>
+                <xs:element name="orderInformation" type="med:orderInformation" minOccurs="0"/>
                 <xs:element name="informationSource" type="core:informant" minOccurs="0"
                     maxOccurs="unbounded"/>
                 <xs:element name="narrative" type="xs:string"/>

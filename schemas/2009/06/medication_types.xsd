@@ -12,9 +12,9 @@
     language governing permissions and limitations under the License. 
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/medication_types"
+    targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/medication"
     xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
-    xmlns:medst="http://projecthdata.org/hdata/schemas/2009/06/medication_types">
+    xmlns:med="http://projecthdata.org/hdata/schemas/2009/06/medication">
 
     <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
         schemaLocation="core_data_types.xsd"/>
@@ -29,7 +29,7 @@
             <xs:element name="manufacturedMaterial">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="codedProductName" type="medst:codedProductName"/>
+                        <xs:element name="codedProductName" type="med:codedProductName"/>
                         <xs:element name="freeTextBrandName" type="xs:string" minOccurs="0"/>
                         <xs:element name="lotNumberText" type="xs:string" minOccurs="0"/>
                     </xs:sequence>
@@ -49,7 +49,7 @@
         <xs:sequence>
             <xs:element name="orderNumber" type="core:instanceIdentifier" minOccurs="0"/>
             <xs:element name="fills" type="xs:integer" minOccurs="0"/>
-            <xs:element name="quantityOrdered" type="medst:dose" minOccurs="0"/>
+            <xs:element name="quantityOrdered" type="med:dose" minOccurs="0"/>
             <xs:element name="orderExpirationTime" type="xs:dateTime" minOccurs="0"/>
             <xs:element name="orderTime" type="xs:dateTime" minOccurs="0"/>
             <xs:element name="orderingProvider" type="core:actor" minOccurs="0">
@@ -179,8 +179,8 @@
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="numerator" type="medst:dose"/>
-            <xs:element name="denominator" type="medst:dose"/>
+            <xs:element name="numerator" type="med:dose"/>
+            <xs:element name="denominator" type="med:dose"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -197,12 +197,12 @@
         <xs:sequence>
             <xs:element name="codedBrandName" minOccurs="0" maxOccurs="unbounded">
                 <xs:complexType>
-                    <xs:attributeGroup ref="medst:medicationCodeAttributes"/>
+                    <xs:attributeGroup ref="med:medicationCodeAttributes"/>
                 </xs:complexType>
             </xs:element>
             <xs:element name="freeTextProductName" type="xs:string"/>
         </xs:sequence>
-        <xs:attributeGroup ref="medst:medicationCodeAttributes"/>
+        <xs:attributeGroup ref="med:medicationCodeAttributes"/>
     </xs:complexType>
 
     <xs:attributeGroup name="medicationCodeAttributes">

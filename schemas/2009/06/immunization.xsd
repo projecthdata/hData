@@ -15,11 +15,11 @@
   targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/immunization"
   xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core"
   xmlns:i="http://projecthdata.org/hdata/schemas/2009/06/immunization"
-  xmlns:medst="http://projecthdata.org/hdata/schemas/2009/06/medication_types">
+  xmlns:med="http://projecthdata.org/hdata/schemas/2009/06/medication">
 
   <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core"
     schemaLocation="core_data_types.xsd"/>
-  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/medication_types"
+  <xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/medication"
     schemaLocation="medication_types.xsd"/>
 
   <xs:annotation>
@@ -41,7 +41,7 @@
         <xs:element name="refusal" type="xs:boolean"/>
         <xs:element name="administeredDate" type="xs:dateTime" minOccurs="0"/>
         <xs:element name="performer" type="core:actor" minOccurs="0"/>
-        <xs:element name="medicationInformation" type="medst:medicationInformation"/>
+        <xs:element name="medicationInformation" type="med:medicationInformation"/>
         <xs:element name="refusalReason" type="i:noImmunizationReason" minOccurs="0"/>
         <xs:element name="informationSource" type="core:informant" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="narrative" type="xs:string"/>
