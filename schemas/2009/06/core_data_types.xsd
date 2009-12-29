@@ -110,7 +110,7 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute default="false" name="prefered" type="xs:boolean"/>
+    <xs:attribute default="false" name="preferred" type="xs:boolean"/>
   </xs:complexType>
 
   <!--
