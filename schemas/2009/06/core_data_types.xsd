@@ -296,7 +296,7 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element name="name" type="xs:string"/>
-      <xs:element name="pointOfContacts" minOccurs="0">
+      <xs:element name="pointsOfContact" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
             <xs:element minOccurs="0" maxOccurs="unbounded" name="pointOfContact" form="unqualified"
