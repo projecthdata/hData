@@ -36,7 +36,7 @@
     </xs:complexType>
   </xs:element>
   <xs:element name="extension">
-    <xs:complexType>
+    <xs:complexType mixed="true">
       <xs:attribute name="requirement" use="required">
         <xs:simpleType>
           <xs:restriction base="xs:token">
