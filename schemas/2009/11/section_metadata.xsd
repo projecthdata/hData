@@ -45,6 +45,13 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
+                <xs:element name="Title" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            This required element holds the title of the Section Document.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
                 <xs:element minOccurs="0" name="LinkedDocuments">
                     <xs:annotation>
                         <xs:documentation>
