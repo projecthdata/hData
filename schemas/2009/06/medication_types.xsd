@@ -55,8 +55,7 @@
             <xs:element name="orderingProvider" type="core:actor" minOccurs="0">
                 <xs:annotation>
                     <xs:documentation>
-                        The provider, the name of the person or organization fulfilling the
-                        prescription. The pharmacy that performed this dispense.
+                        The provider, the name of the person/physician placing the order.
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
