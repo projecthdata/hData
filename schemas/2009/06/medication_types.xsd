@@ -129,24 +129,6 @@
         </xs:complexContent>
     </xs:complexType>
 
-    <xs:complexType name="statusOfMedication">
-        <xs:annotation>
-            <xs:documentation>
-                Used to indicate the status of the medication
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexContent>
-            <xs:restriction base="core:codedValue">
-                <xs:attribute name="code" use="required" type="xs:string" fixed="33999-4"/>
-                <xs:attribute name="codeSystem" type="xs:string" use="required"
-                    fixed="2.16.840.1.113883.6.1"/>
-                <xs:attribute name="codeSystemName" type="xs:string" fixed="LOINC"/>
-                <xs:attribute name="displayName" type="xs:string" fixed="Status"/>
-            </xs:restriction>
-
-        </xs:complexContent>
-    </xs:complexType>
-
     <xs:complexType name="dose">
         <xs:annotation>
             <xs:documentation>
