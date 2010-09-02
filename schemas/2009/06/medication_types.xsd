@@ -271,5 +271,38 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:complexType name="fulfillment">
+        <xs:annotation>
+            <xs:documentation>History of a single dispense for order</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dispenseDate" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation>The date of this dispense</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="provider" type="core:actor">
+                <xs:annotation>
+                    <xs:documentation>The pharmacy that performed this dispense; may include the pharmasist information.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="quantity" type="med:dose">
+                <xs:annotation>
+                    <xs:documentation>The actual quantity of product supplied in this fulfillment.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="prescriptionNumber" type="xs:int" use="required">
+            <xs:annotation>
+                <xs:documentation>The prescription identifier assigned by the pharmacy.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="repeatNumber" type="xs:int" use="optional">
+            <xs:annotation>
+                <xs:documentation>The sequence number of repeat(refills) that this dispense fulfills. The number should always be less then or equal to the fills element of orderInformation.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
 
 </xs:schema>
