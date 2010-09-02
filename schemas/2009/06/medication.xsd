@@ -39,6 +39,7 @@ See L32_ClinicalDocument.xsd for license details
                 <xs:element name="statusOfMedication" type="med:statusOfMedication" minOccurs="0"/>
                 <xs:element name="patientInstructions" type="xs:string" minOccurs="0"/>
                 <xs:element name="orderInformation" type="med:orderInformation" minOccurs="0"/>
+                <xs:element name="provider" type="core:actor" minOccurs="0"/>
                 <xs:element name="narrative" type="xs:string"/>
                 <xs:element name="fulfillmentHistory" type="med:fulfillment" minOccurs="0" maxOccurs="unbounded" />
              </xs:sequence>
