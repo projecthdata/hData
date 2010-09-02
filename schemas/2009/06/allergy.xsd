@@ -43,16 +43,21 @@
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="adverseEventDate" type="core:dateRange" minOccurs="0"/>
-        <xs:element name="adverseEventType" type="allergy:adverseEventType" minOccurs="0"/>
         <xs:choice>
-            <xs:element name="product" type="allergy:product" />
-            <xs:element name="unknownProduct" type="allergy:unknownProduct" />
-            <xs:element name="freeTextProduct" />
+            <xs:sequence>
+              <xs:element name="adverseEventDate" type="core:dateRange" minOccurs="0"/>
+              <xs:element name="adverseEventType" type="allergy:adverseEventType" minOccurs="0"/>
+              <xs:choice>
+                  <xs:element name="product" type="allergy:product" />
+                  <xs:element name="unknownProduct" type="allergy:unknownProduct" />
+                  <xs:element name="freeTextProduct" />
+              </xs:choice>
+              <xs:element name="reaction" type="allergy:reaction"/>
+              <xs:element name="severity" type="allergy:severity"/>
+              <xs:element name="alertStatus" type="allergy:alertStatus"/>
+            </xs:sequence>
+            <xs:element name="noKnownAllergies" type="allergy:noKnownAllergy" />
         </xs:choice>
-        <xs:element name="reaction" type="allergy:reaction"/>
-        <xs:element name="severity" type="allergy:severity"/>
-        <xs:element name="alertStatus" type="allergy:alertStatus"/>
         <xs:element name="narrative" type="xs:string"/>
       </xs:sequence>
     </xs:complexType>
