@@ -226,4 +226,30 @@
         </xs:complexContent>
     </xs:complexType>
 
+    <xs:complexType name="unknownProduct">
+        <xs:annotation>
+            <xs:documentation>Coded value for an unknown product. Indicates the state where there is a known allergy or intollerance to an unknown substance. </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:restriction base="core:codedValue">
+                <xs:attribute name="code" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:token">
+                            <xs:enumeration value="64970000"/>
+                            <!-- Substance Type Unknown -->
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="displayName">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="Substance Type Unknown"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="codeSystemName" type="xs:string" fixed="SNOMED CT"/>
+                <xs:attribute name="codeSystem" type="xs:string" use="required" fixed="2.16.840.1.113883.6.96"/>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
 </xs:schema>
