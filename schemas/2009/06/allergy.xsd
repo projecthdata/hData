@@ -49,7 +49,6 @@
         <xs:element name="reaction" type="allergy:reaction"/>
         <xs:element name="severity" type="allergy:severity"/>
         <xs:element name="alertStatus" type="allergy:alertStatus"/>
-        <xs:element name="informationSource" type="core:informant" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="narrative" type="xs:string"/>
       </xs:sequence>
     </xs:complexType>
