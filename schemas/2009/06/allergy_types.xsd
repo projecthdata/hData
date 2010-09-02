@@ -252,4 +252,37 @@
             </xs:restriction>
         </xs:complexContent>
     </xs:complexType>
+
+    <xs:complexType name="noKnownAllergy">
+        <xs:annotation>
+            <xs:documentation>
+              Coded value for No Known Allergy (NKA). Indicates the state where the patient has no problems or allergies.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:restriction base="core:codedValue">
+                <xs:attribute name="code" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:token">
+                            <xs:enumeration value="409137002"/>
+                            <xs:enumeration value="160244002"/>
+                            <!-- No Known Drug Allergies -->
+                            <!-- No Known Allergies -->
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="displayName">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="No Known Drug Allergies"/>
+                            <xs:enumeration value="No Known Allergies"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="codeSystemName" type="xs:string" fixed="SNOMED CT"/>
+                <xs:attribute name="codeSystem" type="xs:string" use="required" fixed="2.16.840.1.113883.6.96"/>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+    
 </xs:schema>
