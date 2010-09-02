@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:core="http://projecthdata.org/hdata/schemas/2009/06/core" xmlns:freq="http://projecthdata.org/hdata/schemas/2009/06/frequency" targetNamespace="http://projecthdata.org/hdata/schemas/2009/06/frequency" elementFormDefault="qualified">
+	<xs:import namespace="http://projecthdata.org/hdata/schemas/2009/06/core" schemaLocation="core_data_types.xsd"/>
+	<xs:complexType name="frequency">
+		<xs:sequence>
+			<xs:element name="effectiveDateTime" type="core:dateRange"/>
+			<xs:choice>
+				<xs:element name="effectiveFrequency" type="freq:periodicInterval" maxOccurs="2"/>
+				<xs:element name="eventBased" type="freq:eventBasedInterval"/>
+				<xs:element name="freeTextFrequency" type="xs:string"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="periodicInterval">
+		<xs:choice>
+			<xs:sequence>
+				<xs:element name="period" type="freq:period"/>
+				<xs:element name="phase" type="freq:phase" minOccurs="0"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:annotation>
+					<xs:documentation>When phase appears without period, phase low element needs to be used as specific time (Ignore the date part of the low) and width will tell duration if necessary.</xs:documentation>
+				</xs:annotation>
+				<xs:element name="phase" type="freq:phase" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="inclusive" type="xs:boolean" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Specifies whether the limit is included in the interval (interval is closed) or excluded from the interval (interval is open).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="eventBasedInterval">
+		<xs:sequence>
+			<xs:element name="dailyEvent" type="freq:event"/>
+			<xs:element name="period" type="freq:period" minOccurs="0"/>
+			<xs:element name="eventPhase" type="freq:phase" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="period">
+		<xs:annotation>
+			<xs:documentation>A dimensioned quantity expressing the result of a measurement act.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="institutionSpecified" type="xs:boolean" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Indicates whether the exact timing is up to the party executing the schedule. whether it is the interval (time between dosing), or frequency (number of doses in a time period) that is important. If instititutionSpecified is not present or is set to false, then the time between dosing is important (every 8 hours). If true, then the frequency of administration is important (e.g., 3 times per day).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="inclusive" type="xs:boolean" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Specifies whether the limit is included in the interval (interval is closed) or excluded from the interval (interval is open).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="value" type="xs:int" use="required">
+			<xs:annotation>
+				<xs:documentation>The magnitude of the quantity measured in terms of the unit.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="unit" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The unit of measure specified in the Unified Code for Units of Measure (UCUM) [http://aurora.rg.iupui.edu/UCUM].</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="phase">
+		<xs:sequence>
+			<xs:element name="low" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The low limit of the interval.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice minOccurs="0">
+				<xs:element name="width" type="freq:measurement" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>The difference between high and low boundary. The purpose of distinguishing a width property is to handle all cases of incomplete information symmetrically. In any interval representation only two of the three properties high, low, and width need to be stated and the third can be derived.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="high" type="xs:dateTime" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>The high limit of the interval.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="event">
+		<xs:sequence>
+			<xs:element name="event" type="freq:dailyEvent" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A code for a common (periodical) activity of daily living based on which the event related periodic interval is specified.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="offset" type="freq:phase" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>An interval of elapsed time (duration, not absolute point in time) that marks the offsets for the beginning, width and end of the event-related periodic interval measured from the time each such event actually occurred.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="measurement">
+		<xs:annotation>
+			<xs:documentation>A dimensioned quantity expressing the result of a measurement act.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="value" type="xs:int" use="required">
+			<xs:annotation>
+				<xs:documentation>The magnitude of the quantity measured in terms of the unit.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="unit" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The unit of measure specified in the Unified Code for Units of Measure (UCUM) [http://aurora.rg.iupui.edu/UCUM].</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="dailyEvent">
+		<xs:annotation>
+			<xs:documentation>A code for a common (periodical) activity of daily living based on which the event related periodic interval is specified.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="core:codedValue">
+				<xs:attribute name="code" use="required">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="AC"/>
+							<xs:enumeration value="ACD"/>
+							<xs:enumeration value="ACM"/>
+							<xs:enumeration value="ACV"/>
+							<xs:enumeration value="HS"/>
+							<xs:enumeration value="IC"/>
+							<xs:enumeration value="ICD"/>
+							<xs:enumeration value="ICM"/>
+							<xs:enumeration value="ICV"/>
+							<xs:enumeration value="PC"/>
+							<xs:enumeration value="PCD"/>
+							<xs:enumeration value="PCM"/>
+							<xs:enumeration value="PCV"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+				<xs:attribute name="codeSystemName" type="xs:string" fixed="TimingEvent"/>
+				<xs:attribute name="codeSystem" type="xs:string" use="required" fixed="2.16.840.1.113883.5.139"/>
+				<xs:attribute name="displayName">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="before meal"/>
+							<xs:enumeration value="before lunch"/>
+							<xs:enumeration value="before breakfast"/>
+							<xs:enumeration value="before dinner"/>
+							<xs:enumeration value="the hour of sleep"/>
+							<xs:enumeration value="between meals"/>
+							<xs:enumeration value="between lunch and dinner"/>
+							<xs:enumeration value="between breakfast and lunch"/>
+							<xs:enumeration value="between dinner and the hour of sleep"/>
+							<xs:enumeration value="after meal"/>
+							<xs:enumeration value="after lunch"/>
+							<xs:enumeration value="after breakfast"/>
+							<xs:enumeration value="after dinner"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>
