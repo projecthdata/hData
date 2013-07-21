@@ -1,0 +1,44 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" 
+targetNamespace="http://hl7.org/schemas/hdata/2013/08/hmd" 
+xmlns="http://www.w3.org/2001/XMLSchema"
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:hmd="http://www.projecthdata.org/hdata/schemas/hrf2/hmd">
+<xs:import namespace="http://www.w3.org/2005/Atom" 
+schemaLocation="http://www.projecthdata.org/hdata/schemas/hrf2/atom.xsd"/>
+
+<xs:element type="xs:string" name="confidentiality"/>
+<xs:element type="xs:string" name="eventType"/>
+<xs:element type="xs:dateTime" name="recorded"/>
+<xs:element type="xs:anyURI" name="subject"/>
+<xs:element type="xs:string" name="description"/>
+<xs:element type="xs:string" name="partyType"/>
+<xs:element type="xs:string" name="role"/>
+<xs:element type="xs:string" name="identifier"/>
+<xs:element type="xs:string" name="signature"/>
+
+<xs:element name="party" type="hmd:PartyType"/>
+<xs:element name="provenance" type="hmd:ProvenanceType"/>
+
+<xs:complexType name="PartyType">
+  <xs:sequence>
+    <xs:element ref="hmd:partyType"/>
+    <xs:element ref="hmd:role"/>
+    <xs:element ref="hmd:identifier"/>
+    <xs:element ref="hmd:description"/>
+    <xs:element ref="hmd:partyType"/>
+    <xs:element name="provenance" type="hmd:ProvenanceType" minOccurs="0" maxOccurs="unbounded"/>
+    <xs:element ref="hmd:signature" minOccurs="0"/>
+  </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ProvenanceType">
+  <xs:sequence>
+    <xs:element ref="hmd:eventType"/>
+    <xs:element ref="hmd:recorded"/>
+    <xs:element ref="hmd:subject"/>
+    <xs:element ref="hmd:description"/>
+    <xs:element name="party" type="hmd:PartyType" maxOccurs="unbounded"/>   
+  </xs:sequence>
+</xs:complexType>
+
+</xs:schema>
