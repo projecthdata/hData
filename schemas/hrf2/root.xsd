@@ -1,0 +1,85 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" 
+targetNamespace="http://www.projecthdata.org/hdata/schemas/hdata/hrf2/root" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:hrf="http://www.projecthdata.org/hdata/schemas/hdata/hrf2/root">
+
+<xs:element type="xs:string" name="id"/>
+<xs:element type="xs:float" name="version"/>
+<xs:element type="xs:dateTime" name="created"/>
+<xs:element type="xs:dateTime" name="lastModified"/>
+<xs:element type="xs:string" name="reference"/>
+<xs:element type="xs:string" name="path"/>
+<xs:element type="xs:string" name="profileID"/>
+<xs:element type="xs:boolean" name="resourcePrefix"/>
+<xs:element type="xs:string" name="resourceTypeID"/>
+<xs:element type="xs:boolean" name="metadataSupport"/>
+<xs:element type="xs:string" name="mediaType"/>
+<xs:element type="xs:string" name="validator"/>  
+
+<xs:group name="extensionElement">
+  <xs:sequence>
+    <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+    <xs:any namespace="##local" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence>
+</xs:group>
+
+<xs:element name="profile">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="hrf:id"/>
+      <xs:element ref="hrf:reference"/>
+      <xs:group ref="hrf:extensionElement" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="section">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="hrf:path"/>
+      <xs:element ref="hrf:profileID" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="hrf:resourcePrefix" minOccurs="0"/>
+      <xs:element ref="hrf:resourceTypeID" minOccurs="0"/>
+      <xs:element ref="hrf:metadataSupport" minOccurs="0"/>
+      <xs:group ref="hrf:extensionElement" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="hrf:section" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="representation">
+  <xs:complexType>
+    <xs:sequence>  
+      <xs:element ref="hrf:mediaType"/>
+      <xs:element ref="hrf:validator" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:group ref="hrf:extensionElement" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="resourceType">
+  <xs:complexType>
+    <xs:sequence>  
+      <xs:element ref="hrf:id"/>
+      <xs:element ref="hrf:reference"/>
+      <xs:element ref="hrf:representation" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:group ref="hrf:extensionElement" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="Root">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="hrf:id"/>
+      <xs:element ref="hrf:version"/>
+      <xs:element ref="hrf:created"/>
+      <xs:element ref="hrf:lastModified"/>
+      <xs:element ref="hrf:profile" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="hrf:section" maxOccurs="unbounded"/>
+      <xs:element ref="hrf:resourceType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:group ref="hrf:extensionElement" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+</xs:schema>
