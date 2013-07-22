@@ -22,7 +22,7 @@ xmlns:hrf="http://www.projecthdata.org/hdata/schemas/hdata/hrf2/root">
     <xs:any namespace="##local" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
   </xs:sequence>
 </xs:group>
-
+ 
 <xs:element name="profile">
   <xs:complexType>
     <xs:sequence>
